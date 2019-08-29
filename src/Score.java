@@ -9,10 +9,10 @@ public class Score {
     }
 
     public void maxScore(Dice[] dices) {
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 5; j++) {
-                if (dices[j].value() == i + 1) {
-                    tempScoreBoard[i] += i + 1;
+        for (int diceValue = 0; diceValue < 6; diceValue++) {
+            for (int value = 0; value < 5; value++) {
+                if (dices[value].value() == diceValue + 1) {
+                    tempScoreBoard[diceValue] += diceValue + 1;
                 }
             }
         }
