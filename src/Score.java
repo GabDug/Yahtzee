@@ -20,7 +20,7 @@ public class Score {
 
     public void printScore() {
         for (int i = 0; i < 6; i++) {
-            System.out.println(tempScoreBoard[i]);
+            System.out.printf("%-4.4s  %-4.4s%n", i+1, tempScoreBoard[i]);
         }
     }
 }
