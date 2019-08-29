@@ -11,14 +11,13 @@ public class GameEngine {
             dices[i] = new Dice(6);
         }
 
-        Score score = new Score();
         rollDices();
         System.out.println("Dices");
         printDices();
 
         System.out.println("Possible Scores");
-        score.maxScore(this.dices);
-        score.printScore();
+        scoreboard.maxScore(this.dices);
+        scoreboard.printMaxScore();
 
         while (throwLeft > 0) {
             askInput();
@@ -66,6 +65,22 @@ public class GameEngine {
                 this.printDices();
             } else {
                 System.out.println("No throw left! Please choose a score.");
+            }
+        }
+        if (userChoice == 3) {
+            // Score Selection
+            int score;
+
+            while (true) {
+                score = scoreSelect();
+                if (this.scoreboard.isAvailable(score)) {
+                    System.out.println("Score is available");
+                    this.scoreboard.selectScore(this.dices, score);
+                    this.scoreboard.printScore();
+                    break;
+                } else {
+                    System.out.print("Not available!");
+                }
             }
         }
     }
