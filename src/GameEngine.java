@@ -12,14 +12,12 @@ public class GameEngine {
         }
 
         rollDices();
-        System.out.println("Dices");
-        printDices();
-
-        System.out.println("Possible Scores");
-        scoreboard.maxScore(this.dices);
-        scoreboard.printMaxScore();
 
         while (throwLeft > 0) {
+            printDices();
+            System.out.println("Possible Scores");
+            scoreboard.maxScore(this.dices);
+            scoreboard.printMaxScore();
             askInput();
 
         }
@@ -35,8 +33,20 @@ public class GameEngine {
     }
 
     void printDices() {
+        System.out.println("Dices");
+        int diceNbr = 0;
         for (int i = 0; i < 5; i++) {
-            System.out.printf("%-4.4s ", this.dices[i].value());
+            if (!this.dices[i].keep()) {
+                diceNbr++;
+                System.out.printf("%-4.4s ", this.dices[i].value());
+            }
+        }
+        if (diceNbr != 5) {
+            System.out.println("\nKeeper Dices");
+            for (int i = 0; i < 5; i++) {
+                if (this.dices[i].keep())
+                    System.out.printf("%-4.4s ", this.dices[i].value());
+            }
         }
         System.out.println("");
     }
@@ -77,6 +87,7 @@ public class GameEngine {
                     System.out.println("Score is available");
                     this.scoreboard.selectScore(this.dices, score);
                     this.scoreboard.printScore();
+
                     break;
                 } else {
                     System.out.print("Not available!");
@@ -89,12 +100,11 @@ public class GameEngine {
 
         int selection;
         Scanner input = new Scanner(System.in);
-
-        System.out.println("Choose from these choices");
-        System.out.println("-------------------------\n");
+        System.out.println("-------------------------");
         System.out.println("1 - Keeper Selection");
         System.out.println("2 - Re-roll");
         System.out.println("3 - Score Selection");
+        System.out.println("-------------------------");
 
         selection = input.nextInt();
         return selection;
