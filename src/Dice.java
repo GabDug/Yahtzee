@@ -28,4 +28,16 @@ public class Dice {
     public void toggleKeeper() {
         keeper = !keeper;
     }
+
+    public void maxScore() {
+        /* Ones
+        Twos
+        Threes
+        Fours
+        Fives
+        Sixes
+        (Sum)
+        Bonus
+         */
+    }
 }

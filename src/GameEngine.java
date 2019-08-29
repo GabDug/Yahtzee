@@ -7,8 +7,15 @@ public class GameEngine {
         for (int i = 0; i < 5; i++) {
             dices[i] = new Dice(6);
         }
+
+        Score score = new Score();
         rollDices();
+        System.out.println("Dices");
         printDices();
+
+        System.out.println("Scores");
+        score.maxScore(this.dices);
+        score.printScore();
     }
 
 
