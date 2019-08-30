@@ -1,13 +1,12 @@
 import java.util.Scanner;
 
 public class Round {
-    int throwLeft;
-
-    Score scoreboard;
-    Dice[] dices = new Dice[5];
+    private int throwLeft;
+    private Score scoreboard;
+    private Dice[] dices = new Dice[5];
 
     public Round(Score scoreboard) {
-        this.scoreboard=scoreboard;
+        this.scoreboard = scoreboard;
         throwLeft = 2;
 
         for (int i = 0; i < 5; i++) {
@@ -32,7 +31,40 @@ public class Round {
         }
     }
 
-    void rollDices() {
+    private static int menu() {
+        int selection;
+        Scanner input = new Scanner(System.in);
+        System.out.println("-------------------------");
+        System.out.println("1 - Keeper Selection");
+        System.out.println("2 - Re-roll");
+        System.out.println("3 - Score Selection");
+        System.out.println("-------------------------");
+        selection = input.nextInt();
+        return selection;
+    }
+
+    private static int keeperSelect() {
+        int selection;
+        Scanner input = new Scanner(System.in);
+        System.out.println("Input the dice number to add it to keep.");
+        System.out.println("Input 0 to exit this menu");
+
+        selection = input.nextInt();
+        return selection;
+    }
+
+    private static int scoreSelect() {
+        int selection;
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Input the score number to add it to keep.");
+        System.out.println("Input 0 to exit this menu");
+
+        selection = input.nextInt();
+        return selection;
+    }
+
+    private void rollDices() {
         for (int i = 0; i < 5; i++) {
             // System.out.println(i);
             if (!this.dices[i].keep()) {
@@ -41,8 +73,7 @@ public class Round {
         }
     }
 
-
-    void printDices() {
+    private void printDices() {
         System.out.println("Dices");
         int diceNbr = 0;
         for (int i = 0; i < 5; i++) {
@@ -58,38 +89,44 @@ public class Round {
                     System.out.printf("%-4.4s ", this.dices[i].value());
             }
         }
-        System.out.println("");
+        System.out.println();
     }
 
-    void askInput() {
+    private void askInput() {
         int userChoice;
         Scanner input = new Scanner(System.in);
-
         userChoice = menu();
         if (userChoice == 1) {
-            int keep;
-
-            while (true) {
-                keep = keeperSelect();
-                if (keep == 0) {
-                    break;
-                } else {
-                    this.dices[keep - 1].toggleKeeper();
-                }
-            }
+            this.toggleKeeper();
         }
         if (userChoice == 2) {
-            if (this.throwLeft > 0) {
-                this.throwLeft--;
-                this.rollDices();
-                this.printDices();
-            } else {
-                System.out.println("No throw left! Please choose a score.");
-            }
+            this.reRoll();
         }
         if (userChoice == 3) {
-            // Score Selection
             this.scoreSelectCheck();
+        }
+    }
+
+    private void toggleKeeper() {
+        int keep;
+
+        while (true) {
+            keep = keeperSelect();
+            if (keep == 0) {
+                break;
+            } else {
+                this.dices[keep - 1].toggleKeeper();
+            }
+        }
+    }
+
+    private void reRoll() {
+        if (this.throwLeft > 0) {
+            this.throwLeft--;
+            this.rollDices();
+            this.printDices();
+        } else {
+            System.out.println("No throw left! Please choose a score.");
         }
     }
 
@@ -109,45 +146,5 @@ public class Round {
                 System.out.print("Not available!");
             }
         }
-    }
-
-    public static int menu() {
-
-        int selection;
-        Scanner input = new Scanner(System.in);
-        System.out.println("-------------------------");
-        System.out.println("1 - Keeper Selection");
-        System.out.println("2 - Re-roll");
-        System.out.println("3 - Score Selection");
-        System.out.println("-------------------------");
-
-        selection = input.nextInt();
-        return selection;
-    }
-
-    public static int keeperSelect() {
-        int selection;
-        Scanner input = new Scanner(System.in);
-
-        /***************************************************/
-
-        System.out.println("Input the dice number to add it to keep.");
-        System.out.println("Input 0 to exit this menu");
-
-
-        selection = input.nextInt();
-        return selection;
-    }
-
-    public static int scoreSelect() {
-        int selection;
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("Input the score number to add it to keep.");
-        System.out.println("Input 0 to exit this menu");
-
-
-        selection = input.nextInt();
-        return selection;
     }
 }

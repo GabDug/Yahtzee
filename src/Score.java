@@ -60,11 +60,7 @@ public class Score {
     }
 
     public boolean isAvailable(int scoreToCheck) {
-        if (scoreBoard[scoreToCheck - 1] == -1) {
-            return true;
-        } else {
-            return false;
-        }
+        return scoreBoard[scoreToCheck - 1] == -1;
     }
 
     private void saveScore(int scorePos, int scoreValue) {
