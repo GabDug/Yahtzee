@@ -13,13 +13,24 @@ public class GameEngine {
 
         rollDices();
 
-        while (throwLeft > 0) {
+        while (throwLeft >= 0) {
+            System.out.println("Throw:" + throwLeft);
             printDices();
             System.out.println("Possible Scores");
             scoreboard.maxScore(this.dices);
             scoreboard.printMaxScore();
-            askInput();
+            if (throwLeft == 0) {
 
+                this.scoreSelectCheck();
+                rollDices();
+                throwLeft = 2;
+            } else {
+                askInput();
+            }
+        }
+
+        if (throwLeft == 0) {
+            System.out.println("End!");
         }
     }
 
@@ -79,19 +90,24 @@ public class GameEngine {
         }
         if (userChoice == 3) {
             // Score Selection
-            int score;
+            this.scoreSelectCheck();
+        }
+    }
 
-            while (true) {
-                score = scoreSelect();
-                if (this.scoreboard.isAvailable(score)) {
-                    System.out.println("Score is available");
-                    this.scoreboard.selectScore(this.dices, score);
-                    this.scoreboard.printScore();
+    private void scoreSelectCheck() {
+        int score;
 
-                    break;
-                } else {
-                    System.out.print("Not available!");
-                }
+        while (true) {
+            score = scoreSelect();
+            if (score == 0)
+                break;
+            if (this.scoreboard.isAvailable(score)) {
+                System.out.println("Score is available");
+                this.scoreboard.selectScore(this.dices, score);
+                this.scoreboard.printScore();
+                break;
+            } else {
+                System.out.print("Not available!");
             }
         }
     }
@@ -127,8 +143,6 @@ public class GameEngine {
     public static int scoreSelect() {
         int selection;
         Scanner input = new Scanner(System.in);
-
-        /***************************************************/
 
         System.out.println("Input the score number to add it to keep.");
         System.out.println("Input 0 to exit this menu");

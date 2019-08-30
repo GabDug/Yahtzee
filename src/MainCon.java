@@ -7,16 +7,14 @@ public class MainCon {
 		String i = new String();
 		Scanner sc = new Scanner(System.in);
 		do {
-			System.out.println("1-single player\n2-multiplayer\n3-exit\n");
+			System.out.println("1 - Single player\n2 - Multiplayer\n3 - Exit\n");
 			
 			i = sc.nextLine();
 				switch(i) {
 					case "1":
-				
 						GameEngine game = new GameEngine();
 						break;
-						
-					
+
 						
 					case "2":
 						System.out.println("is comming like the winter ");
