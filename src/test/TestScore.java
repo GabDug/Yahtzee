@@ -7,7 +7,6 @@ import yahtzee.Score;
 
 public class TestScore {
 
-
     @Test
     public void smallStraight_1() {
         // Arrange
@@ -64,7 +63,7 @@ public class TestScore {
         dices[1].setValue(5);
         dices[2].setValue(4);
         dices[3].setValue(3);
-        dices[3].setValue(6);
+        dices[4].setValue(6);
         final Score scoreboard = new Score();
 
         final int expected = 40;
