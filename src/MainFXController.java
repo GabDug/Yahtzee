@@ -15,11 +15,14 @@ import table.ScoreTable;
 import java.util.function.Function;
 
 public class MainFXController {
+    public static int MAX_SCORE_NAME = 6;
+
     public TableView tableView;
     public TableColumn player1;
     public TableColumn scoreName;
     public TableColumn player2;
     public Button reRollButton;
+
     @FXML
     private Text scoreLabel;
 
@@ -93,15 +96,19 @@ public class MainFXController {
                                 if (event.getClickCount() > 1) {
                                     TableCell c = (TableCell) event.getSource();
                                     System.out.println("Info " + c.getTableRow().getIndex());
-                                    gfx.rou.scoreSelectCheck(c.getTableRow().getIndex());
-                                    gfx.scoreboard.maxScore(gfx.rou.dices);
-                                    addScore(gfx.scoreboard.getMaxScore(), gfx.scoreboard.getScore());
+                                    if (c.getTableRow().getIndex() < MAX_SCORE_NAME) {
+                                        gfx.rou.scoreSelectCheck(c.getTableRow().getIndex());
+                                        gfx.scoreboard.maxScore(gfx.rou.dices);
+                                        addScore(gfx.scoreboard.getMaxScore(), gfx.scoreboard.getScore());
 
-                                    gfx.reset();
-                                    reRollButton.setDisable(false);
-                                    updateThrowLeft();
-                                    gfx.rou.rollDices();
-                                    updateDices();
+                                        gfx.reset();
+                                        reRollButton.setDisable(false);
+                                        updateThrowLeft();
+                                        gfx.rou.rollDices();
+                                        updateDices();
+                                    } else {
+                                        System.out.println("Click on bad cell!");
+                                    }
                                 }
                             }
                         });

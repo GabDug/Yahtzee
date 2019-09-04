@@ -12,18 +12,11 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // FXMLLoader loader = new FXMLLoader();
-        //  loader.setLocation(getClass().getResource("MainFX.fxml"));
-        // loader.setControllerFactory(t -> new GameEngineFX());
-
         Parent root = FXMLLoader.load(getClass().getResource("MainFX.fxml"));
 
         Scene scene = new Scene(root, 700, 500);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Yahtzee");
         primaryStage.show();
-
-        // Scene scene = primaryStage.getScene();
-        // Image img = (Image) scene.lookup("#myBtnID");
     }
 }

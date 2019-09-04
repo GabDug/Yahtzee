@@ -13,7 +13,7 @@ public class RoundFX {
             dices[i] = new Dice(6);
         }
 
-        rollDices();
+        // rollDices();
 
         printDices();
         System.out.println("Possible Scores");
