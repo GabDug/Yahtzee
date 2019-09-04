@@ -114,7 +114,146 @@ public class Score {
 
     }
 
+    public int threeOfKind(Dice[] dices)
+    {
+        int[] counts = new int[6];
+        int score = 0;
+        for(int i =0; i<dices.lengthh; i++)
+        {
+            counts[dices[i].value()-1]++;
+        }
+
+        boolean check3 = false;
+        for (int i: counts) {
+            check3 |= (i==3); //found 3 of some number
+            if(i==3)
+            {
+                for(int j=0 ; j<4;j++)
+                {
+                    score= score+dices[j].value();
+                    return score;
+                }
+            }
+
+        }
+        return score;
+
+    }
+
+    public int fourOfKind(Dice[] dices) {
+        int[] counts = new int[6];
+        int score = 0;
+        for (int i = 0; i < dices.lengthh; i++) {
+            counts[dices[i].value() - 1]++;
+        }
+
+        boolean check3 = false;
+        for (int i : counts) {
+            check3 |= (i == 4); //found 3 of some number
+            if (i == 4) {
+                for (int j = 0; j < 4; j++) {
+                    score = score + dices[j].value();
+                    return score;
+                }
+            }
+        }
+        return score;
+    }
+
+    public int smallLargeStraight(Dice[] dices ) {
+
+        int count = 0;
+
+        for (int i = 0; i < 4; i++) {
+            if (dices[i].value() == 3) {
+                for (int j = 0; j < 4; j++) {
+                    if (dices[j].value() == 4) {
+                        for (int k = 0; k < 4; k++) {
+                            if (dices[k].value() == 5) {
+                                for (int m = 0; m < 4; m++) {
+                                    if (dices[m].value() == 6) {
+                                        for (int p = 0; p < 4; p++) {
+                                            if (dices[k].value() == 2)
+                                                return 40;
+                                        }
+                                        return 30;
+                                    }
+                                    if (dices[m].value() == 2) {
+                                        for (int p = 0; p < 4; p++) {
+                                            if (dices[p].value() == 6)
+                                                return 40;
+                                        }
+                                        return 30;
+                                    }
+
+                                }
+
+
+                                if (dices[k].value() == 2) {
+                                    for (int m = 0; m < 4; m++) {
+                                        if (dices[m].value() == 1) {
+                                            for (int p = 0; p < 4; p++) {
+                                                if (dices[p].value() == 5)
+                                                    return 40;
+                                            }
+                                            return 30;
+                                        }
+                                        if (dices[m].value() == 5) {
+                                            for (int p = 0; p < 4; p++) {
+                                                if (dices[p].value() == 1)
+                                                    return 40;
+                                            }
+                                            return 30;
+                                        }
+
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        return 0;
+    }
+
+    public int chance(Dice[] dices)
+    {
+        int score=0;
+        for(int i=0;i<4;i++)
+        {
+            score=score+dices[i].value();
+        }
+        return score;
+    }
+
+    public int yahtzee(Dice[] dices)
+    {
+        int[] counts = new int[6];
+        for(int i =0; i<dices.lengthh; i++)
+        {
+            counts[dices[i].value()-1]++;
+        }
+
+        boolean check5 = false;
+        for (int i: counts) {
+            check5 |= (i==5); //found 3 of some number
+            if(i==5)
+            {
+                return 50;
+            }
+
+        }
+        return 0;
+
+    }
+
 }
+
+
+
 
 
 
