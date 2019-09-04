@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import table.ScoreTable?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
 <GridPane xmlns:fx="http://javafx.com/fxml"
-          fx:controller="MainFXController" alignment="center" hgap="10" vgap="10">
+          fx:controller="yahtzee.MainFXController" alignment="center" hgap="10" vgap="10">
     <padding>
         <Insets top="5" right="25" bottom="10" left="25"/>
     </padding>
     <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" alignment="CENTER">
         <children>
-            <Label fx:id="title" text="Yahtzee"/>
+            <Label fx:id="title" text="Yahtzee !"/>
         </children>
     </VBox>
     <Text fx:id="scoreLabel"
@@ -34,9 +25,6 @@
                 onAction="#reRollEvent"/>
     </HBox>
 
-    <!--<Label text="Score"
-           GridPane.columnIndex="6" GridPane.rowIndex="0">
-    </Label>-->
     <GridPane fx:id="keptDice" alignment="center" hgap="10" vgap="10" style="-fx-background-color: #eee"
               GridPane.columnIndex="1" GridPane.rowIndex="8">
         <ImageView fx:id="dice1"
@@ -48,7 +36,7 @@
                    onMouseClicked='#diceClick'
                    preserveRatio="true">
             <image>
-                <Image url="@resources/dieWhite1.png"/>
+                <Image url="@../resources/dieWhite1.png"/>
             </image>
         </ImageView>
         <ImageView fx:id="dice2"
@@ -60,7 +48,7 @@
                    onMouseClicked='#diceClick'
                    preserveRatio="true">
             <image>
-                <Image url="@resources/dieWhite2.png"/>
+                <Image url="@../resources/dieWhite2.png"/>
             </image>
         </ImageView>
         <ImageView fx:id="dice3"
@@ -72,7 +60,7 @@
                    onMouseClicked='#diceClick'
                    preserveRatio="true">
             <image>
-                <Image url="@resources/dieWhite3.png"/>
+                <Image url="@../resources/dieWhite3.png"/>
             </image>
         </ImageView>
         <ImageView fx:id="dice4"
@@ -84,7 +72,7 @@
                    onMouseClicked='#diceClick'
                    preserveRatio="true">
             <image>
-                <Image url="@resources/dieWhite4.png"/>
+                <Image url="@../resources/dieWhite4.png"/>
             </image>
         </ImageView>
         <ImageView fx:id="dice5"
@@ -96,19 +84,22 @@
                    onMouseClicked='#diceClick'
                    preserveRatio="true">
             <image>
-                <Image url="@resources/dieWhite5.png"/>
+                <Image url="@../resources/dieWhite5.png"/>
             </image>
         </ImageView>
     </GridPane>
-    <TableView fx:id="tableView" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="7">
+    <TableView fx:id="tableView"
+               prefWidth="350.0"
+               minHeight="480"
+               GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="7">
         <columns>
-            <TableColumn fx:id="scoreName" text="">
+            <TableColumn fx:id="scoreName" minWidth="60" text="">
                 <cellValueFactory>
                     <PropertyValueFactory property="scoreName"/>
                 </cellValueFactory>
 
             </TableColumn>
-            <TableColumn fx:id="player1" text="Possible Score">
+            <TableColumn fx:id="player1" text="P1">
                 <cellValueFactory>
                     <PropertyValueFactory property="player1"/>
                 </cellValueFactory>

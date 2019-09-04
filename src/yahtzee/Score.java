@@ -1,3 +1,7 @@
+package yahtzee;
+
+import java.util.Arrays;
+
 public class Score {
     private int[] tempScoreBoard = new int[16];
     private int[] scoreBoard = new int[16];
@@ -61,10 +65,10 @@ public class Score {
         upperScore(dices); // For score index 0 to 5
         tempScoreBoard[8] = threeOfKind(dices);
         tempScoreBoard[9] = fourOfKind(dices);
-        // tempScoreBoard[10] = fullhouse(dices);
-        // tempScoreBoard[11] = smallstraight(dices);
-        // tempScoreBoard[12] = largestraight(dices);
-        tempScoreBoard[13] = chance(dices);
+        tempScoreBoard[10] = fullhouse(dices);
+        tempScoreBoard[11] = smallStraight(dices);
+        tempScoreBoard[12] = largeStraight(dices);
+        tempScoreBoard[13] = sumDices(dices);
         tempScoreBoard[14] = yahtzee(dices);
 
 
@@ -114,122 +118,99 @@ public class Score {
     }
 
 
-    private boolean fullhouse(Dice[] dices) {
+    protected int fullhouse(Dice[] dices) {
         int[] counts = new int[6];
         for (int i = 0; i < dices.length; i++)
-            //increase the relevant counter
+        //increase the relevant counter
+        {
             counts[dices[i].value() - 1]++;
+        }
         //now check we've got a 2 and a 3
         boolean check2 = false;
         boolean check3 = false;
         for (int i : counts) {
             check2 |= (i == 2); //found 2 of some number
             check3 |= (i == 3); //found 3 of some number
-            if (i == 5) return true; //found a Yahtzee so stop and return true
+            if (i == 5) return 25; //found a Yahtzee so stop and return true
         }
-        return (check2 && check3);
-
+        return (check2 && check3) ? 25 : 0;
     }
 
-    private int threeOfKind(Dice[] dices) {
-        int[] counts = new int[6];
-        int score = 0;
+    protected int threeOfKind(Dice[] dices) {
+        System.out.println(dices);
+        if ((dices[0].value() == dices[1].value() && dices[1].value() == dices[2].value()) ||
+                (dices[1].value() == dices[2].value() && dices[2].value() == dices[3].value()) ||
+                (dices[2].value() == dices[3].value() && dices[3].value() == dices[4].value())) {
+
+            return sumDices(dices);
+        } else {
+            return 0;
+        }
+    }
+
+    public int fourOfKind(Dice[] dices) {
+        int counter = 0;
+
+        int[] x = new int[6];
         for (int i = 0; i < dices.length; i++) {
-            counts[dices[i].value() - 1]++;
+            x[i] = (dices[i].value());
         }
-
-        boolean check3 = false;
-        for (int i : counts) {
-            check3 |= (i == 3); //found 3 of some number
-            if (i == 3) {
-                for (int j = 0; j < 4; j++) {
-                    score = score + dices[j].value();
-                    return score;
-                }
-            }
-        }
-        return score;
+        Arrays.sort(x);
+        if ((x[0] == x[3]) || (x[1] == x[4]))
+            return sumDices(dices);
+        return 0;
     }
 
-    private int fourOfKind(Dice[] dices) {
-        int[] counts = new int[6];
-        int score = 0;
+    public int smallStraight(Dice[] dices) {
+        int counter = 0;
+
+        int[] x = new int[6];
         for (int i = 0; i < dices.length; i++) {
-            counts[dices[i].value() - 1]++;
+            x[i] = (dices[i].value());
         }
+        Arrays.sort(x);
 
-        boolean check3 = false;
-        for (int i : counts) {
-            check3 |= (i == 4); //found 3 of some number
-            if (i == 4) {
-                for (int j = 0; j < 4; j++) {
-                    score = score + dices[j].value();
-                    return score;
-                }
+        for (int i = 0; i < x.length - 1; i++) {
+            if (x[i + 1] == x[i] + 1) {
+                counter++;
+            } else if (x[i + 1] == x[i]) {
+                continue;
+            } else {
+                counter = 0;
             }
-        }
-        return score;
-    }
-
-    public int smallLargeStraight(Dice[] dices) {
-
-        int count = 0;
-        for (int i = 0; i < 4; i++) {
-            if (dices[i].value() == 3) {
-                for (int j = 0; j < 4; j++) {
-                    if (dices[j].value() == 4) {
-                        for (int k = 0; k < 4; k++) {
-                            if (dices[k].value() == 5) {
-                                for (int m = 0; m < 4; m++) {
-                                    if (dices[m].value() == 6) {
-                                        for (int p = 0; p < 4; p++) {
-                                            if (dices[k].value() == 2)
-                                                return 40;
-                                        }
-                                        return 30;
-                                    }
-                                    if (dices[m].value() == 2) {
-                                        for (int p = 0; p < 4; p++) {
-                                            if (dices[p].value() == 6)
-                                                return 40;
-                                        }
-                                        return 30;
-                                    }
-
-                                }
-
-
-                                if (dices[k].value() == 2) {
-                                    for (int m = 0; m < 4; m++) {
-                                        if (dices[m].value() == 1) {
-                                            for (int p = 0; p < 4; p++) {
-                                                if (dices[p].value() == 5)
-                                                    return 40;
-                                            }
-                                            return 30;
-                                        }
-                                        if (dices[m].value() == 5) {
-                                            for (int p = 0; p < 4; p++) {
-                                                if (dices[p].value() == 1)
-                                                    return 40;
-                                            }
-                                            return 30;
-                                        }
-
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-                }
+            if (counter == 3) {
+                return 30;
             }
-
         }
         return 0;
     }
 
-    private int chance(Dice[] dices) {
+    public int largeStraight(Dice[] dices) {
+        int counter = 0;
+
+        int[] x = new int[6];
+        for (int i = 0; i < dices.length; i++) {
+            x[i] = (dices[i].value());
+        }
+        Arrays.sort(x);
+
+        for (int i = 0; i < x.length - 1; i++) {
+            if (x[i + 1] == x[i] + 1) {
+                counter++;
+            } else if (x[i + 1] == x[i]) {
+                continue;
+            } else {
+                counter = 0;
+            }
+            if (counter == 4) {
+                return 40;
+            }
+        }
+        return 0;
+    }
+
+
+    private int sumDices(Dice[] dices) {
         int score = 0;
         for (int i = 0; i < dices.length; i++) {
             score = score + dices[i].value();
@@ -237,7 +218,7 @@ public class Score {
         return score;
     }
 
-    private int yahtzee(Dice[] dices) {
+    public int yahtzee(Dice[] dices) {
         int[] counts = new int[6];
         for (int i = 0; i < dices.length; i++) {
             counts[dices[i].value() - 1]++;

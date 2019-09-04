@@ -1,3 +1,5 @@
+package yahtzee;
+
 import java.util.Random;
 
 public class Dice {
@@ -31,6 +33,10 @@ public class Dice {
 
     public void setKeeper(boolean keep) {
         this.keeper = keep;
+    }
+
+    public void setValue(int newValue) {
+        this.value = newValue;
     }
 
 }

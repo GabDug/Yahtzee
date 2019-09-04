@@ -1,3 +1,5 @@
+package yahtzee;
+
 public class GameEngineFX {
     public Score scoreboard = new Score();
     public RoundFX rou;

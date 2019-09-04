@@ -1,3 +1,5 @@
+package yahtzee;
+
 public class GameEngine {
     public Score scoreboard = new Score();
 

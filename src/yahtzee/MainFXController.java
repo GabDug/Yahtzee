@@ -1,3 +1,5 @@
+package yahtzee;
+
 import com.sun.istack.internal.NotNull;
 import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
@@ -18,7 +20,7 @@ import table.ScoreTable;
 import java.util.function.Function;
 
 public class MainFXController {
-    public static int MAX_SCORE_NAME = 6;
+    public static int MAX_SCORE_NAME = 16;
 
     public TableView tableView;
     public TableColumn player1;
@@ -86,8 +88,15 @@ public class MainFXController {
                             @Override
                             public void updateItem(String item, boolean empty) {
                                 super.updateItem(item, empty);
-                                setText(empty ? null : getString());
+                                if (item != null && item.contains("R")) {
+                                    setStyle("-fx-text-fill: red;");
+                                } else if (item != null) {
+                                    setStyle("-fx-text-fill: black;");
+                                }
+
+                                setText(empty ? null : getString().replace("R", ""));
                                 setGraphic(null);
+
                             }
 
                             private String getString() {
@@ -100,19 +109,23 @@ public class MainFXController {
                             public void handle(MouseEvent event) {
                                 if (event.getClickCount() > 1) {
                                     TableCell c = (TableCell) event.getSource();
-                                    System.out.println("Info " + c.getTableRow().getIndex());
-                                    if (c.getTableRow().getIndex() < MAX_SCORE_NAME) {
-                                        gfx.rou.scoreSelectCheck(c.getTableRow().getIndex());
-                                        gfx.scoreboard.maxScore(gfx.rou.dices);
-                                        addScore(gfx.scoreboard.getMaxScore(), gfx.scoreboard.getScore());
+                                    System.out.println("DEBUG Row Clicked" + c.getTableRow().getIndex());
+                                    if (c.getTableRow().getIndex() < MAX_SCORE_NAME && gfx.rou.throwLeft != 3) {
+                                        if (gfx.rou.scoreSelectCheck(c.getTableRow().getIndex())) {
 
-                                        gfx.reset();
-                                        resetDice();
-                                        reRollButton.setDisable(false);
-                                        updateThrowLeft();
-                                        gfx.rou.rollDices();
-                                        updateDices();
+                                            gfx.scoreboard.maxScore(gfx.rou.dices);
+                                            addScore(gfx.scoreboard.getMaxScore(), gfx.scoreboard.getScore());
 
+                                            gfx.reset();
+                                            resetDice();
+                                            reRollButton.setDisable(false);
+                                            updateThrowLeft();
+                                            gfx.rou.rollDices();
+                                            updateDices();
+                                        }
+                                        else {
+                                            System.out.println("DEBUG Score is not available");
+                                        }
                                     } else {
                                         System.out.println("Click on bad cell!");
                                     }
@@ -208,9 +221,17 @@ public class MainFXController {
     private void addScore(int[] score, int[] score2) {
         tableView.getItems().clear();
         for (int i = 0; i < 16; i++) {
-            tableView.getItems().add(new ScoreTable(Score.lower(i + 1),
-                    score[i] == 0 ? "" : Integer.toString(score[i]),
-                    score2[i] == -1 ? "" : Integer.toString(score2[i])));
+            String textRealScore = score2[i] == -1 ? "" : Integer.toString(score2[i]);
+            String testScore = score[i] == 0 ? "" : Integer.toString(score[i]);
+            String toAdd = "";
+            if (!testScore.equals("") && textRealScore.equals("")) {
+                toAdd = testScore + "R";
+            } else {
+                toAdd = textRealScore;
+            }
+
+            tableView.getItems().add(new ScoreTable(Score.lower(i + 1), toAdd, textRealScore
+            ));
         }
     }
 

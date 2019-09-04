@@ -1,3 +1,5 @@
+package yahtzee;
+
 public class RoundFX {
     public int throwLeft;
     public Dice[] dices = new Dice[5];
@@ -10,7 +12,6 @@ public class RoundFX {
         for (int i = 0; i < 5; i++) {
             dices[i] = new Dice(6);
         }
-
         // rollDices();
 
         printDices();
@@ -62,14 +63,15 @@ public class RoundFX {
         }
     }
 
-    public void scoreSelectCheck(int score) {
+    public boolean scoreSelectCheck(int score) {
         if (this.scoreboard.isAvailable(score + 1)) {
             System.out.println("Score is available");
             this.scoreboard.selectScore(this.dices, score + 1);
             this.scoreboard.printScore();
-
+            return true;
         } else {
-            System.out.print("Not available!");
+            System.out.println("Not available!");
+            return false;
         }
 
     }
