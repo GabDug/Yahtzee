@@ -1,32 +1,55 @@
 public class Score {
-    private int[] tempScoreBoard = new int[6];
-    private int[] scoreBoard = new int[6];
+    private int[] tempScoreBoard = new int[16];
+    private int[] scoreBoard = new int[16];
 
 
     public Score() {
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 16; i++) {
             tempScoreBoard[i] = 0;
         }
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 16; i++) {
             scoreBoard[i] = -1;
         }
     }
 
     public static String lower(int i) {
-        if (i == 1) {
-            return "Ones";
-        } else if (i == 2) {
-            return "Twos";
-        } else if (i == 3) {
-            return "Threes";
-        } else if (i == 4) {
-            return "Fours";
-        } else if (i == 5) {
-            return "Fives";
-        } else if (i == 6) {
-            return "Sixes";
+
+        switch (i) {
+            case 1:
+                return "Ones";
+            case 2:
+                return "Twos";
+            case 3:
+                return "Threes";
+            case 4:
+                return "Fours";
+            case 5:
+                return "Fives";
+            case 6:
+                return "Sixes";
+            case 7:
+                return "Bonus";
+            case 8:
+                return "Sum";
+            case 9:
+                return "Three of a kind";
+            case 10:
+                return "Four of a kind";
+            case 11:
+                return "Full House";
+            case 12:
+                return "Small straight";
+            case 13:
+                return "Large straight";
+            case 14:
+                return "Chance";
+            case 15:
+                return "Yahtzee";
+            case 16:
+                return "Total Score";
+            default:
+                return "0";
         }
-        return "0";
     }
 
     public void maxScore(Dice[] dices) {
@@ -45,38 +68,20 @@ public class Score {
     }
 
     public void printMaxScore() {
-        for (int i = 0; i < 6; i++) {
-            System.out.printf("%-2.2s  %-9.9s  %-4.4s%n", i + 1, uper(i + 1), tempScoreBoard[i]);
+        for (int i = 0; i < 16; i++) {
+            System.out.printf("%-2.2s  %-16.16s  %-4.4s%n", i + 1, lower(i + 1), tempScoreBoard[i]);
         }
     }
 
     public void printScore() {
-        for (int i = 0; i < 6; i++) {
-            System.out.printf("%-2.2s  %-9.9s  %-4.4s%n", i + 1, uper(i + 1), scoreBoard[i]);
+        for (int i = 0; i < 16; i++) {
+            System.out.printf("%-2.2s  %-16.16s  %-4.4s%n", i + 1, lower(i + 1), scoreBoard[i]);
         }
     }
 
     public int[] getScore() {
         return this.scoreBoard;
     }
-    public String uper(int i) {
-        if (i == 1) {
-            return "Ones: ";
-        } else if (i == 2) {
-            return "Twos: ";
-        } else if (i == 3) {
-            return "Threes: ";
-        } else if (i == 4) {
-            return "Fours: ";
-        } else if (i == 5) {
-            return "Fives: ";
-        } else if (i == 6) {
-            return "Sixes: ";
-        }
-        return "0";
-    }
-    
-
 
     public int[] getMaxScore() {
         return this.tempScoreBoard;
@@ -96,19 +101,18 @@ public class Score {
     }
 
 
-    public boolean fullhouse(Dice[] dices)
-    {
+    public boolean fullhouse(Dice[] dices) {
         int[] counts = new int[6];
-        for (int i=0; i<dices.length; i++)
+        for (int i = 0; i < dices.length; i++)
             //increase the relevant counter
-            counts[dices[i].value()-1]++;
-//now check we've got a 2 and a 3
+            counts[dices[i].value() - 1]++;
+        //now check we've got a 2 and a 3
         boolean check2 = false;
         boolean check3 = false;
-        for (int i: counts) {
-            check2 |= (i==2); //found 2 of some number
-            check3 |= (i==3); //found 3 of some number
-            if (i==5) return true; //found a Yahtzee so stop and return true
+        for (int i : counts) {
+            check2 |= (i == 2); //found 2 of some number
+            check3 |= (i == 3); //found 3 of some number
+            if (i == 5) return true; //found a Yahtzee so stop and return true
         }
         return (check2 && check3);
 
