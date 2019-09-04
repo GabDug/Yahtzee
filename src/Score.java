@@ -58,6 +58,7 @@ public class Score {
 
     public int[] getScore() {
         return this.scoreBoard;
+    }
     public String uper(int i) {
         if (i == 1) {
             return "Ones: ";
@@ -75,23 +76,7 @@ public class Score {
         return "0";
     }
     
-    public int lower(int j)
-    { 
-    	//3 and 4 of a Kind
-    	Dice[] dices = null;
-    	
-    	
-    	for(int i=0;i<6;i++)
-    	{
-    		if(dices[i].value() == dices[i+1].value() )
-    		{
-    	
-    		}
-    		
-    	}
-    	
-    	return 0;
-    }
+
 
     public int[] getMaxScore() {
         return this.tempScoreBoard;
