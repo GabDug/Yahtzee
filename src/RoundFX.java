@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class RoundFX {
     public int throwLeft;
     public Dice[] dices = new Dice[5];
