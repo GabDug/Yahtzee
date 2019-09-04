@@ -1,3 +1,4 @@
+import com.sun.istack.internal.NotNull;
 import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
 
@@ -9,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import org.jetbrains.annotations.NotNull;
 import table.ScoreTable;
 
 import java.util.function.Function;
