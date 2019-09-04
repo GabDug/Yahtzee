@@ -1,10 +1,12 @@
 import com.sun.istack.internal.NotNull;
 import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -129,7 +131,6 @@ public class MainFXController {
 
         this.resetDice();
 
-
         keptDice.setMinHeight(100);
         keptDice.setMinWidth(300);
         rollingDice.setMinHeight(100);
@@ -147,16 +148,6 @@ public class MainFXController {
     private void updateThrowLeft() {
         scoreLabel.setText("Throw left: " + this.gfx.rou.throwLeft);
     }
-
-/*    @FXML
-    public void clickItem(MouseEvent event) {
-        if (event.getClickCount() == 2) //Checking double click
-        {
-            System.out.println(tableView.getSelectionModel().getSelectedItem());
-            System.out.println(tableView.getSelectionModel().getSelectedItem());
-            System.out.println(tableView.getSelectionModel().getSelectedItem());
-        }
-    }*/
 
     @FXML
     protected void reRollEvent(ActionEvent event) {
@@ -217,7 +208,9 @@ public class MainFXController {
     private void addScore(int[] score, int[] score2) {
         tableView.getItems().clear();
         for (int i = 0; i < 16; i++) {
-            tableView.getItems().add(new ScoreTable(Score.lower(i + 1), Integer.toString(score[i]), score2[i] == -1 ? "" : Integer.toString(score2[i])));
+            tableView.getItems().add(new ScoreTable(Score.lower(i + 1),
+                    score[i] == 0 ? "" : Integer.toString(score[i]),
+                    score2[i] == -1 ? "" : Integer.toString(score2[i])));
         }
     }
 

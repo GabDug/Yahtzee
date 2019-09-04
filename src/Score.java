@@ -59,7 +59,6 @@ public class Score {
         }
 
         upperScore(dices); // For score index 0 to 5
-
         tempScoreBoard[8] = threeOfKind(dices);
         tempScoreBoard[9] = fourOfKind(dices);
         // tempScoreBoard[10] = fullhouse(dices);
