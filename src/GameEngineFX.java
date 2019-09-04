@@ -8,7 +8,7 @@ public class GameEngineFX {
     }
 
     public void reset() {
-        this.rou.throwLeft = 2;
+        this.rou.throwLeft = 3;
         for (int dice = 0; dice < 5; dice++) {
             this.rou.dices[dice].setKeeper(false);
         }

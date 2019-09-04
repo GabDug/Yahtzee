@@ -19,27 +19,88 @@
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="MainFXController" alignment="center" hgap="10" vgap="10">
     <padding>
-        <Insets top="25" right="25" bottom="10" left="25"/>
+        <Insets top="5" right="25" bottom="10" left="25"/>
     </padding>
-    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" alignment="CENTER">
         <children>
-            <Label text="Welcome to Yahtzee"/>
+            <Label text="Yahtzee"/>
         </children>
     </VBox>
+    <Text fx:id="scoreLabel"
+          GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
-
-    <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="7">
         <Button text="Roll Dice" fx:id="reRollButton"
                 onAction="#reRollEvent"/>
     </HBox>
 
-    <Text fx:id="scoreLabel"
-          GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-    <Label text="Score"
-           GridPane.columnIndex="7" GridPane.rowIndex="0">
-    </Label>
-    <TableView fx:id="tableView" GridPane.columnIndex="7"
-               GridPane.rowIndex="1">
+    <!--<Label text="Score"
+           GridPane.columnIndex="6" GridPane.rowIndex="0">
+    </Label>-->
+    <GridPane fx:id="keptDice" alignment="center" hgap="10" vgap="10" style="-fx-background-color: #eee"
+              GridPane.columnIndex="1" GridPane.rowIndex="8">
+        <ImageView fx:id="dice1"
+                   GridPane.columnIndex="1" GridPane.rowIndex="7"
+                   disable="false"
+                   fitHeight="40.0" fitWidth="40.0"
+                   layoutX="400.0" layoutY="22.0"
+                   pickOnBounds="true"
+                   onMouseClicked='#diceClick'
+                   preserveRatio="true">
+            <image>
+                <Image url="@resources/dieWhite1.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="dice2"
+                   GridPane.columnIndex="2" GridPane.rowIndex="7"
+                   disable="false"
+                   fitHeight="40.0" fitWidth="40.0"
+                   layoutX="400.0" layoutY="22.0"
+                   pickOnBounds="true"
+                   onMouseClicked='#diceClick'
+                   preserveRatio="true">
+            <image>
+                <Image url="@resources/dieWhite2.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="dice3"
+                   GridPane.columnIndex="3" GridPane.rowIndex="7"
+                   disable="false"
+                   fitHeight="40.0" fitWidth="40.0"
+                   layoutX="400.0" layoutY="22.0"
+                   pickOnBounds="true"
+                   onMouseClicked='#diceClick'
+                   preserveRatio="true">
+            <image>
+                <Image url="@resources/dieWhite3.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="dice4"
+                   GridPane.columnIndex="4" GridPane.rowIndex="7"
+                   disable="false"
+                   fitHeight="40.0" fitWidth="40.0"
+                   layoutX="400.0" layoutY="22.0"
+                   pickOnBounds="true"
+                   onMouseClicked='#diceClick'
+                   preserveRatio="true">
+            <image>
+                <Image url="@resources/dieWhite4.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="dice5"
+                   GridPane.columnIndex="5" GridPane.rowIndex="7"
+                   disable="false"
+                   fitHeight="40.0" fitWidth="40.0"
+                   layoutX="400.0" layoutY="22.0"
+                   pickOnBounds="true"
+                   onMouseClicked='#diceClick'
+                   preserveRatio="true">
+            <image>
+                <Image url="@resources/dieWhite5.png"/>
+            </image>
+        </ImageView>
+    </GridPane>
+    <TableView fx:id="tableView" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="7">
         <columns>
             <TableColumn fx:id="scoreName" text="">
                 <cellValueFactory>
@@ -60,78 +121,13 @@
         </columns>
         <items>
             <FXCollections fx:factory="observableArrayList">
-                <!-- <ScoreTable scoreName="Ones" player1="" player2=""/>
-                 <ScoreTable scoreName="Twos" player1="" player2=""/>
-                 <ScoreTable scoreName="Threes" player1="" player2=""/>
-                 <ScoreTable scoreName="Fours" player1="" player2=""/>
-                 <ScoreTable scoreName="Fives" player1="" player2=""/>
-                 <ScoreTable scoreName="Sixes" player1="" player2=""/>
-                 <ScoreTable scoreName="Bonus" player1="" player2=""/>-->
-                <!--<ScoreTable scoreName="SUM" player1="" player2=""/>-->
             </FXCollections>
         </items>
     </TableView>
+    <GridPane fx:id="rollingDice" alignment="center" hgap="10" vgap="10" style="-fx-background-color: #eee"
+              GridPane.columnIndex="1" GridPane.rowIndex="5">
 
-    <ImageView fx:id="dice1"
-               GridPane.columnIndex="1" GridPane.rowIndex="7"
-               disable="false"
-               fitHeight="40.0" fitWidth="40.0"
-               layoutX="400.0" layoutY="22.0"
-               pickOnBounds="true"
-               onMouseClicked='#diceClick'
-               preserveRatio="true">
-        <image>
-            <Image url="@resources/dieWhite1.png"/>
-        </image>
-    </ImageView>
-    <ImageView fx:id="dice2"
-               GridPane.columnIndex="2" GridPane.rowIndex="7"
-               disable="false"
-               fitHeight="40.0" fitWidth="40.0"
-               layoutX="400.0" layoutY="22.0"
-               pickOnBounds="true"
-               onMouseClicked='#diceClick'
-               preserveRatio="true">
-        <image>
-            <Image url="@resources/dieWhite2.png"/>
-        </image>
-    </ImageView>
-    <ImageView fx:id="dice3"
-               GridPane.columnIndex="3" GridPane.rowIndex="7"
-               disable="false"
-               fitHeight="40.0" fitWidth="40.0"
-               layoutX="400.0" layoutY="22.0"
-               pickOnBounds="true"
-               onMouseClicked='#diceClick'
-               preserveRatio="true">
-        <image>
-            <Image url="@resources/dieWhite3.png"/>
-        </image>
-    </ImageView>
-    <ImageView fx:id="dice4"
-               GridPane.columnIndex="4" GridPane.rowIndex="7"
-               disable="false"
-               fitHeight="40.0" fitWidth="40.0"
-               layoutX="400.0" layoutY="22.0"
-               pickOnBounds="true"
-               onMouseClicked='#diceClick'
-               preserveRatio="true">
-        <image>
-            <Image url="@resources/dieWhite4.png"/>
-        </image>
-    </ImageView>
-    <ImageView fx:id="dice5"
-               GridPane.columnIndex="5" GridPane.rowIndex="7"
-               disable="false"
-               fitHeight="40.0" fitWidth="40.0"
-               layoutX="400.0" layoutY="22.0"
-               pickOnBounds="true"
-               onMouseClicked='#diceClick'
-               preserveRatio="true">
-        <image>
-            <Image url="@resources/dieWhite5.png"/>
-        </image>
-    </ImageView>
+    </GridPane>
 </GridPane>
 
 

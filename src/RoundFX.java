@@ -7,7 +7,7 @@ public class RoundFX {
 
     public RoundFX(Score scoreboard) {
         this.scoreboard = scoreboard;
-        throwLeft = 2;
+        throwLeft = 3;
 
         for (int i = 0; i < 5; i++) {
             dices[i] = new Dice(6);

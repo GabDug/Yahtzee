@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import table.ScoreTable;
@@ -22,6 +23,8 @@ public class MainFXController {
     public TableColumn scoreName;
     public TableColumn player2;
     public Button reRollButton;
+    public GridPane rollingDice;
+    public GridPane keptDice;
 
     @FXML
     private Text scoreLabel;
@@ -102,10 +105,12 @@ public class MainFXController {
                                         addScore(gfx.scoreboard.getMaxScore(), gfx.scoreboard.getScore());
 
                                         gfx.reset();
+                                        resetDice();
                                         reRollButton.setDisable(false);
                                         updateThrowLeft();
                                         gfx.rou.rollDices();
                                         updateDices();
+
                                     } else {
                                         System.out.println("Click on bad cell!");
                                     }
@@ -120,6 +125,8 @@ public class MainFXController {
         player1.setSortable(false);
         player2.setSortable(false);
         scoreName.setSortable(false);
+
+        this.resetDice();
     }
 
     private void updateDices() {
@@ -134,9 +141,7 @@ public class MainFXController {
         scoreLabel.setText("Throw left: " + this.gfx.rou.throwLeft);
     }
 
-    //tableView.setEditable(false);
-
-    @FXML
+/*    @FXML
     public void clickItem(MouseEvent event) {
         if (event.getClickCount() == 2) //Checking double click
         {
@@ -144,14 +149,14 @@ public class MainFXController {
             System.out.println(tableView.getSelectionModel().getSelectedItem());
             System.out.println(tableView.getSelectionModel().getSelectedItem());
         }
-    }
+    }*/
 
     @FXML
     protected void reRollEvent(ActionEvent event) {
-
         this.gfx.rou.throwLeft--;
         this.updateThrowLeft();
 
+        this.reRollFreeDice();
         this.gfx.rou.rollDices();
         this.updateDices();
 
@@ -162,6 +167,46 @@ public class MainFXController {
         }
     }
 
+    private void reRollFreeDice() {
+        if (!this.gfx.rou.dices[0].keep()) {
+            if (keptDice.getChildren().contains(dice1)) {
+                keptDice.getChildren().remove(dice1);
+                rollingDice.getChildren().add(dice1);
+            }
+        }
+        if (!this.gfx.rou.dices[0].keep()) {
+            if (keptDice.getChildren().contains(dice1)) {
+                keptDice.getChildren().remove(dice1);
+                rollingDice.getChildren().add(dice1);
+            }
+        }
+        if (!this.gfx.rou.dices[1].keep()) {
+            if (keptDice.getChildren().contains(dice2)) {
+                keptDice.getChildren().remove(dice2);
+                rollingDice.getChildren().add(dice2);
+            }
+        }
+        if (!this.gfx.rou.dices[2].keep()) {
+            if (keptDice.getChildren().contains(dice3)) {
+                keptDice.getChildren().remove(dice3);
+                rollingDice.getChildren().add(dice3);
+            }
+        }
+        if (!this.gfx.rou.dices[3].keep()) {
+            if (keptDice.getChildren().contains(dice4)) {
+                keptDice.getChildren().remove(dice4);
+                rollingDice.getChildren().add(dice4);
+            }
+        }
+        if (!this.gfx.rou.dices[4].keep()) {
+            if (keptDice.getChildren().contains(dice5)) {
+                keptDice.getChildren().remove(dice5);
+                rollingDice.getChildren().add(dice5);
+            }
+        }
+    }
+
+
     private void addScore(int[] score, int[] score2) {
         tableView.getItems().clear();
         for (int i = 0; i < 6; i++) {
@@ -171,26 +216,71 @@ public class MainFXController {
 
     public void diceClick(@NotNull MouseEvent mouseEvent) {
         System.out.println("Dice clicked");
+        if (this.gfx.rou.throwLeft == 3 || this.gfx.rou.throwLeft == 0) {
+            System.out.println("Can't toggle a dice now!");
+            return;
+        }
+
+
         int id = 0;
+        ImageView diceImg;
         switch (mouseEvent.getPickResult().getIntersectedNode().getId()) {
             case "dice1":
+                diceImg = dice1;
                 id = 1;
                 break;
             case "dice2":
                 id = 2;
+                diceImg = dice2;
                 break;
             case "dice3":
                 id = 3;
+                diceImg = dice3;
                 break;
             case "dice4":
                 id = 4;
+                diceImg = dice4;
                 break;
             case "dice5":
+                diceImg = dice5;
                 id = 5;
                 break;
+            default:
+                diceImg = dice1;
         }
-
+        if (rollingDice.getChildren().contains(diceImg)) {
+            rollingDice.getChildren().remove(diceImg);
+            keptDice.getChildren().add(diceImg);
+        } else {
+            keptDice.getChildren().remove(diceImg);
+            rollingDice.getChildren().add(diceImg);
+        }
         this.gfx.rou.toggleKeeperSolo(id);
         System.out.println("Toggled");
     }
+
+    public void resetDice() {
+        if (rollingDice.getChildren().contains(dice1)) {
+            rollingDice.getChildren().remove(dice1);
+            keptDice.getChildren().add(dice1);
+        }
+        if (rollingDice.getChildren().contains(dice2)) {
+            rollingDice.getChildren().remove(dice2);
+            keptDice.getChildren().add(dice2);
+        }
+        if (rollingDice.getChildren().contains(dice3)) {
+            rollingDice.getChildren().remove(dice3);
+            keptDice.getChildren().add(dice3);
+        }
+        if (rollingDice.getChildren().contains(dice4)) {
+            rollingDice.getChildren().remove(dice4);
+            keptDice.getChildren().add(dice4);
+        }
+        if (rollingDice.getChildren().contains(dice5)) {
+            rollingDice.getChildren().remove(dice5);
+            keptDice.getChildren().add(dice5);
+        }
+    }
+
+
 }
