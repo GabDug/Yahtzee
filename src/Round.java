@@ -15,7 +15,6 @@ public class Round {
 
         rollDices();
 
-
         while (throwLeft >= 0) {
             printDices();
             System.out.println("Possible Scores");
@@ -31,38 +30,6 @@ public class Round {
         }
     }
 
-    private static int menu() {
-        int selection;
-        Scanner input = new Scanner(System.in);
-        System.out.println("-------------------------");
-        System.out.println("1 - Keeper Selection");
-        System.out.println("2 - Re-roll");
-        System.out.println("3 - Score Selection");
-        System.out.println("-------------------------");
-        selection = input.nextInt();
-        return selection;
-    }
-
-    private static int keeperSelect() {
-        int selection;
-        Scanner input = new Scanner(System.in);
-        System.out.println("Input the dice number to add it to keep.");
-        System.out.println("Input 0 to exit this menu");
-
-        selection = input.nextInt();
-        return selection;
-    }
-
-    private static int scoreSelect() {
-        int selection;
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("Input the score number to add it to keep.");
-        System.out.println("Input 0 to exit this menu");
-
-        selection = input.nextInt();
-        return selection;
-    }
 
     private void rollDices() {
         for (int i = 0; i < 5; i++) {
@@ -95,7 +62,7 @@ public class Round {
     private void askInput() {
         int userChoice;
         Scanner input = new Scanner(System.in);
-        userChoice = menu();
+        userChoice = Console.menu();
         if (userChoice == 1) {
             this.toggleKeeper();
         }
@@ -111,7 +78,7 @@ public class Round {
         int keep;
 
         while (true) {
-            keep = keeperSelect();
+            keep = Console.keeperSelect();
             if (keep == 0) {
                 break;
             } else {
@@ -134,7 +101,7 @@ public class Round {
         int score;
 
         while (true) {
-            score = scoreSelect();
+            score = Console.scoreSelect();
             if (score == 0)
                 break;
             if (this.scoreboard.isAvailable(score)) {

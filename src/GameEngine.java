@@ -1,5 +1,5 @@
 public class GameEngine {
-    private Score scoreboard = new Score();
+    public Score scoreboard = new Score();
 
     public GameEngine() {
         while (true) {
