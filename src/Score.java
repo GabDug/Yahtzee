@@ -122,7 +122,7 @@ public class Score {
     {
         int[] counts = new int[6];
         int score = 0;
-        for(int i =0; i<dices.lengthh; i++)
+        for(int i =0; i<dices.length; i++)
         {
             counts[dices[i].value()-1]++;
         }
@@ -147,7 +147,7 @@ public class Score {
     public int fourOfKind(Dice[] dices) {
         int[] counts = new int[6];
         int score = 0;
-        for (int i = 0; i < dices.lengthh; i++) {
+        for (int i = 0; i < dices.length; i++) {
             counts[dices[i].value() - 1]++;
         }
 
@@ -236,7 +236,7 @@ public class Score {
     public int yahtzee(Dice[] dices)
     {
         int[] counts = new int[6];
-        for(int i =0; i<dices.lengthh; i++)
+        for(int i =0; i<dices.length; i++)
         {
             counts[dices[i].value()-1]++;
         }

@@ -216,7 +216,7 @@ public class MainFXController {
 
     private void addScore(int[] score, int[] score2) {
         tableView.getItems().clear();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 16; i++) {
             tableView.getItems().add(new ScoreTable(Score.lower(i + 1), Integer.toString(score[i]), score2[i] == -1 ? "" : Integer.toString(score2[i])));
         }
     }
