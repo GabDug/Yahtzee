@@ -29,4 +29,8 @@ public class Dice {
         keeper = !keeper;
     }
 
+    public void setKeeper(boolean keep) {
+        this.keeper = keep;
+    }
+
 }
