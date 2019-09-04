@@ -23,7 +23,7 @@
     </padding>
     <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" alignment="CENTER">
         <children>
-            <Label text="Yahtzee"/>
+            <Label fx:id="title" text="Yahtzee"/>
         </children>
     </VBox>
     <Text fx:id="scoreLabel"

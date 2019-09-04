@@ -121,12 +121,19 @@ public class MainFXController {
                     }
                 };
 
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         player1.setCellFactory(cellFactory);
         player1.setSortable(false);
         player2.setSortable(false);
         scoreName.setSortable(false);
 
         this.resetDice();
+
+
+        keptDice.setMinHeight(100);
+        keptDice.setMinWidth(300);
+        rollingDice.setMinHeight(100);
+        rollingDice.setMinWidth(300);
     }
 
     private void updateDices() {
