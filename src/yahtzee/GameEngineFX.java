@@ -18,7 +18,7 @@ public class GameEngineFX {
 
     }
 
-    void reRoll() {
+    public void reRoll() {
         if (this.rou.throwLeft > 0) {
             this.rou.throwLeft--;
             this.rou.rollDices();

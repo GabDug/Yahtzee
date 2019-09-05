@@ -132,20 +132,13 @@ public class Score {
     }
 
     public static int yahtzee(Dice[] dices) {
-        int[] counts = new int[6];
-        for (int i = 0; i < dices.length; i++) {
-            counts[dices[i].value() - 1]++;
-        }
-
-        boolean check5 = false;
-        for (int i : counts) {
-            check5 |= (i == 5); //found 3 of some number
-            if (i == 5) {
-                return 50;
-            }
-
-        }
-        return 0;
+        if (dices[0].value() == dices[1].value()
+                && dices[1].value() == dices[2].value()
+                && dices[2].value() == dices[3].value()
+                && dices[3].value() == dices[4].value()) {
+            return 50;
+        } else
+            return 0;
 
     }
 
