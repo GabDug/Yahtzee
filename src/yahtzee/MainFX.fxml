@@ -22,7 +22,7 @@
 
     <HBox GridPane.columnIndex="1" GridPane.rowIndex="7">
         <Button text="Roll Dice" fx:id="reRollButton"
-                onAction="#reRollEvent"/>
+                onAction="#rollEvent"/>
     </HBox>
 
     <GridPane fx:id="keptDice" alignment="center" hgap="10" vgap="10" style="-fx-background-color: #eee"

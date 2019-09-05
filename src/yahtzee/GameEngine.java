@@ -1,5 +1,7 @@
 package yahtzee;
 
+import yahtzee.game.Score;
+
 public class GameEngine {
     public Score scoreboard = new Score();
 

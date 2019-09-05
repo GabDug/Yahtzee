@@ -17,14 +17,14 @@ public class MainFX extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("MainFX.fxml"));
 
-
         Scene scene = new Scene(root, 700, 600);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
         primaryStage.setScene(scene);
         primaryStage.setTitle("Yahtzee");
         primaryStage.getIcons().add(
                 new Image("resources/LogoIcon.png"));
         primaryStage.show();
     }
+
+
 }

@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import table.ScoreTable;
+import yahtzee.game.Score;
 
 import java.util.function.Function;
 
@@ -63,7 +64,7 @@ public class MainFXController {
     }
 
     public void initialize() {
-        System.out.println("Application started");
+        System.out.println("YAHTZEE STARTED!");
         this.gfx = new GameEngineFX();
 
         img[0] = new Image("resources/dieWhite1.png");
@@ -73,10 +74,10 @@ public class MainFXController {
         img[4] = new Image("resources/dieWhite5.png");
         img[5] = new Image("resources/dieWhite6.png");
 
-        updateDices();
+        // updateDices(); // Put random dices from the beginning
         updateThrowLeft();
-        addScore(this.gfx.scoreboard.getMaxScore(), this.gfx.scoreboard.getScore());
-
+        // Add a scoreboard with only labels, not actual score!
+        updateScore();
         /*
         Inspired from https://stackoverflow.com/questions/12499269/javafx-tableview-detect-a-doubleclick-on-a-cell
         */
@@ -88,15 +89,14 @@ public class MainFXController {
                             @Override
                             public void updateItem(String item, boolean empty) {
                                 super.updateItem(item, empty);
+                                // "R" is appended to text supposed to be red, and is thus deleted before printing
                                 if (item != null && item.contains("R")) {
                                     setStyle("-fx-text-fill: red;");
                                 } else if (item != null) {
                                     setStyle("-fx-text-fill: black;");
                                 }
-
                                 setText(empty ? null : getString().replace("R", ""));
                                 setGraphic(null);
-
                             }
 
                             private String getString() {
@@ -110,24 +110,10 @@ public class MainFXController {
                                 if (event.getClickCount() > 1) {
                                     TableCell c = (TableCell) event.getSource();
                                     System.out.println("DEBUG Row Clicked" + c.getTableRow().getIndex());
-                                    if (c.getTableRow().getIndex() < MAX_SCORE_NAME && gfx.rou.throwLeft != 3) {
-                                        if (gfx.rou.scoreSelectCheck(c.getTableRow().getIndex())) {
-
-                                            gfx.scoreboard.maxScore(gfx.rou.dices);
-                                            addScore(gfx.scoreboard.getMaxScore(), gfx.scoreboard.getScore());
-
-                                            gfx.reset();
-                                            resetDice();
-                                            reRollButton.setDisable(false);
-                                            updateThrowLeft();
-                                            gfx.rou.rollDices();
-                                            updateDices();
-                                        }
-                                        else {
-                                            System.out.println("DEBUG Score is not available");
-                                        }
+                                    if (c.getTableRow().getIndex() < MAX_SCORE_NAME) {
+                                        clickCell(c.getTableRow().getIndex());
                                     } else {
-                                        System.out.println("Click on bad cell!");
+                                        System.out.println("DEBUG Cell is not clickable!");
                                     }
                                 }
                             }
@@ -136,20 +122,28 @@ public class MainFXController {
                     }
                 };
 
+        // Set columns to take full width of table
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        // Set the CellFactory to allow format and events (click) on cells
         player1.setCellFactory(cellFactory);
+        // Disable sorting not to mess with our indexes!
         player1.setSortable(false);
         player2.setSortable(false);
         scoreName.setSortable(false);
 
+        // Put dices back in line (not in rolling area)
         this.resetDice();
 
+        // Setup dices areas (kept and rolling)
         keptDice.setMinHeight(100);
         keptDice.setMinWidth(300);
         rollingDice.setMinHeight(100);
         rollingDice.setMinWidth(300);
     }
 
+    /**
+     * Update dices sprites from Dices game object
+     */
     private void updateDices() {
         dice1.setImage(this.img[this.gfx.rou.dices[0].value() - 1]);
         dice2.setImage(this.img[this.gfx.rou.dices[1].value() - 1]);
@@ -162,29 +156,50 @@ public class MainFXController {
         scoreLabel.setText("Throw left: " + this.gfx.rou.throwLeft);
     }
 
+    /**
+     * Handles click on a cell. Reset GUI for new round.
+     */
+    private void clickCell(int row) {
+        if (gfx.scoreSelect(row)) {
+            // Reset GUI for new round
+            updateScore(gfx.scoreboard.getMaxScore(), gfx.scoreboard.getScore());
+            updateThrowLeft();
+            resetDice();
+            updateDices();
+            reRollButton.setDisable(false);
+        }
+    }
+
+    /**
+     * Launches updates to the dices, scoreboard, texts, buttons and game logic.
+     */
     @FXML
-    protected void reRollEvent(ActionEvent event) {
+    protected void rollEvent(ActionEvent event) {
+        // Remove a throw and update text
         this.gfx.rou.throwLeft--;
         this.updateThrowLeft();
 
+        // Roll dices that are supposed to
         this.reRollFreeDice();
         this.gfx.rou.rollDices();
         this.updateDices();
 
-        this.gfx.scoreboard.maxScore(this.gfx.rou.dices);
-        addScore(this.gfx.scoreboard.getMaxScore(), this.gfx.scoreboard.getScore());
+        // Compute maxscore
+        this.gfx.scoreboard.updateMaxScore(this.gfx.rou.dices);
+        // Update score
+        updateScore(this.gfx.scoreboard.getMaxScore(), this.gfx.scoreboard.getScore());
+
+        // Disable button when you can't throw anymore!
         if (this.gfx.rou.throwLeft == 0) {
             this.reRollButton.setDisable(true);
         }
     }
 
+    /**
+     * Roll all dices that are not kept
+     * Put them in the rolling area
+     */
     private void reRollFreeDice() {
-        if (!this.gfx.rou.dices[0].keep()) {
-            if (keptDice.getChildren().contains(dice1)) {
-                keptDice.getChildren().remove(dice1);
-                rollingDice.getChildren().add(dice1);
-            }
-        }
         if (!this.gfx.rou.dices[0].keep()) {
             if (keptDice.getChildren().contains(dice1)) {
                 keptDice.getChildren().remove(dice1);
@@ -217,13 +232,15 @@ public class MainFXController {
         }
     }
 
-
-    private void addScore(int[] score, int[] score2) {
+    /**
+     * Print the latest scoreboard, clearing the old one
+     */
+    private void updateScore(int[] score, int[] possibleScore) {
         tableView.getItems().clear();
         for (int i = 0; i < 16; i++) {
-            String textRealScore = score2[i] == -1 ? "" : Integer.toString(score2[i]);
+            String textRealScore = possibleScore[i] == -1 ? "" : Integer.toString(possibleScore[i]);
             String testScore = score[i] == 0 ? "" : Integer.toString(score[i]);
-            String toAdd = "";
+            String toAdd;
             if (!testScore.equals("") && textRealScore.equals("")) {
                 toAdd = testScore + "R";
             } else {
@@ -235,13 +252,23 @@ public class MainFXController {
         }
     }
 
+    /**
+     * Put an empty scoreboard
+     */
+    private void updateScore() {
+        tableView.getItems().clear();
+        for (int i = 0; i < 16; i++) {
+            tableView.getItems().add(new ScoreTable(Score.lower(i + 1), "", ""
+            ));
+        }
+    }
+
     public void diceClick(@NotNull MouseEvent mouseEvent) {
         System.out.println("Dice clicked");
         if (this.gfx.rou.throwLeft == 3 || this.gfx.rou.throwLeft == 0) {
             System.out.println("Can't toggle a dice now!");
             return;
         }
-
 
         int id = 0;
         ImageView diceImg;
@@ -269,6 +296,8 @@ public class MainFXController {
             default:
                 diceImg = dice1;
         }
+
+        // Change area for dice if needed
         if (rollingDice.getChildren().contains(diceImg)) {
             rollingDice.getChildren().remove(diceImg);
             keptDice.getChildren().add(diceImg);
@@ -280,6 +309,9 @@ public class MainFXController {
         System.out.println("Toggled");
     }
 
+    /**
+     * Put all dices back into line in kept area
+     */
     public void resetDice() {
         if (rollingDice.getChildren().contains(dice1)) {
             rollingDice.getChildren().remove(dice1);
@@ -302,6 +334,4 @@ public class MainFXController {
             keptDice.getChildren().add(dice5);
         }
     }
-
-
 }

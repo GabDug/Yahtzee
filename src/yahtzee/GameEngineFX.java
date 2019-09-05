@@ -1,11 +1,12 @@
 package yahtzee;
 
+import yahtzee.game.Score;
+
 public class GameEngineFX {
     public Score scoreboard = new Score();
     public RoundFX rou;
 
     public GameEngineFX() {
-        System.out.println("New round!");
         rou = new RoundFX(this.scoreboard);
     }
 
@@ -14,5 +15,25 @@ public class GameEngineFX {
         for (int dice = 0; dice < 5; dice++) {
             this.rou.dices[dice].setKeeper(false);
         }
+
+    }
+
+    /**
+     * Select
+     *
+     * @param row of selected score
+     * @return boolean
+     */
+    public boolean scoreSelect(int row) {
+        if (this.rou.throwLeft != 3) {
+            boolean result = this.rou.scoreSelectCheck(row);
+            if (!result) {
+                return false;
+            }
+            // Reset for new round
+            this.reset();
+            return true;
+        }
+        return false;
     }
 }

@@ -1,5 +1,8 @@
 package yahtzee;
 
+import yahtzee.game.Dice;
+import yahtzee.game.Score;
+
 import java.util.Scanner;
 
 public class Round {
@@ -20,7 +23,7 @@ public class Round {
         while (throwLeft >= 0) {
             printDices();
             System.out.println("Possible Scores");
-            scoreboard.maxScore(this.dices);
+            scoreboard.updateMaxScore(this.dices);
             scoreboard.printMaxScore();
             if (throwLeft == 0) {
                 this.scoreSelectCheck();

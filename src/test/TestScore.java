@@ -2,8 +2,8 @@ package test;
 
 import org.junit.Assert;
 import org.junit.Test;
-import yahtzee.Dice;
-import yahtzee.Score;
+import yahtzee.game.Dice;
+import yahtzee.game.Score;
 
 public class TestScore {
 
