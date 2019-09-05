@@ -147,10 +147,8 @@ public class Score {
         for (int diceValue = 0; diceValue < 16; diceValue++) {
             tempScoreBoard[diceValue] = 0;
         }
-
         upperScore(dices); // For score index 0 to 5
-        scoreBoard[7] = totalUpper();
-        scoreBoard[6] = bonus();
+
         tempScoreBoard[8] = threeOfKind(dices);
         tempScoreBoard[9] = fourOfKind(dices);
         tempScoreBoard[10] = fullhouse(dices);
@@ -158,8 +156,7 @@ public class Score {
         tempScoreBoard[12] = largeStraight(dices);
         tempScoreBoard[13] = sumDices(dices);
         tempScoreBoard[14] = yahtzee(dices);
-        scoreBoard[15] = totalScore();
-        //TODO deplacer les fonctions de total
+
     }
 
     private void upperScore(Dice[] dices) {
@@ -207,6 +204,16 @@ public class Score {
     public void selectScore(Dice[] dices, int scorePos) {
         this.updateMaxScore(dices);
         this.saveScore(scorePos, tempScoreBoard[scorePos - 1]);
+        this.updateTotalScore();
+    }
+
+    /**
+     * Update Total Upper, Bonus and Total Score
+     */
+    private void updateTotalScore() {
+        scoreBoard[7] = totalUpper();
+        scoreBoard[6] = bonus();
+        scoreBoard[15] = totalScore();
     }
 
     protected int fullhouse(Dice[] dices) {
