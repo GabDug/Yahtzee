@@ -30,6 +30,52 @@ public class TestScore {
     }
 
     @Test
+    public void threeOfAKind() {
+        // Arrange
+        final Dice[] dices = new Dice[5];
+        for (int i = 0; i < 5; i++) {
+            dices[i] = new Dice(6);
+        }
+        dices[0].setValue(2);
+        dices[1].setValue(2);
+        dices[2].setValue(2);
+        dices[3].setValue(4);
+        dices[4].setValue(5);
+        final Score scoreboard = new Score();
+
+        final int expected = 15;
+
+        // Act
+        final int actual = Score.threeOfKind(dices);
+
+        // Assert
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void smallStraightBis() {
+        // Arrange
+        final Dice[] dices = new Dice[5];
+        for (int i = 0; i < 5; i++) {
+            dices[i] = new Dice(6);
+        }
+        dices[0].setValue(2);
+        dices[1].setValue(1);
+        dices[2].setValue(3);
+        dices[3].setValue(6);
+        dices[3].setValue(6);
+        final Score scoreboard = new Score();
+
+        final int expected = 0;
+
+        // Act
+        final int actual = Score.smallStraight(dices);
+
+        // Assert
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
     public void fourOfAKind() {
         // Arrange
         final Dice[] dices = new Dice[5];

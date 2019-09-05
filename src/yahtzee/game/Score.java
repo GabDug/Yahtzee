@@ -54,11 +54,14 @@ public class Score {
         }
     }
 
-    protected static int threeOfKind(Dice[] dices) {
-        if ((dices[0].value() == dices[1].value() && dices[1].value() == dices[2].value()) ||
-                (dices[1].value() == dices[2].value() && dices[2].value() == dices[3].value()) ||
-                (dices[2].value() == dices[3].value() && dices[3].value() == dices[4].value())) {
+    public static int threeOfKind(Dice[] dices) {
+        Dice[] sortedDices;
+        sortedDices = dices.clone();
 
+        Arrays.sort(sortedDices);
+        if ((sortedDices[0].value() == sortedDices[1].value() && sortedDices[1].value() == sortedDices[2].value()) ||
+                (sortedDices[1].value() == sortedDices[2].value() && sortedDices[2].value() == sortedDices[3].value()) ||
+                (sortedDices[2].value() == sortedDices[3].value() && sortedDices[3].value() == sortedDices[4].value())) {
             return sumDices(dices);
         } else {
             return 0;
@@ -79,16 +82,15 @@ public class Score {
     public static int smallStraight(Dice[] dices) {
         int counter = 0;
 
-        int[] x = new int[6];
-        for (int i = 0; i < dices.length; i++) {
-            x[i] = (dices[i].value());
-        }
-        Arrays.sort(x);
+        Dice[] sortDices;
+        sortDices = dices.clone();
 
-        for (int i = 0; i < x.length - 1; i++) {
-            if (x[i + 1] == x[i] + 1) {
+        Arrays.sort(sortDices);
+
+        for (int i = 0; i < sortDices.length - 1; i++) {
+            if (sortDices[i + 1].value() == sortDices[i].value() + 1) {
                 counter++;
-            } else if (x[i + 1] == x[i]) {
+            } else if (sortDices[i + 1].value() == sortDices[i].value()) {
                 continue;
             } else {
                 counter = 0;
