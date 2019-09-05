@@ -149,6 +149,8 @@ public class Score {
         }
 
         upperScore(dices); // For score index 0 to 5
+        scoreBoard[7] = totalUpper();
+        scoreBoard[6] = bonus();
         tempScoreBoard[8] = threeOfKind(dices);
         tempScoreBoard[9] = fourOfKind(dices);
         tempScoreBoard[10] = fullhouse(dices);
@@ -156,8 +158,8 @@ public class Score {
         tempScoreBoard[12] = largeStraight(dices);
         tempScoreBoard[13] = sumDices(dices);
         tempScoreBoard[14] = yahtzee(dices);
-
-
+        scoreBoard[15] = totalScore();
+        //TODO deplacer les fonctions de total
     }
 
     private void upperScore(Dice[] dices) {
@@ -225,6 +227,39 @@ public class Score {
         return (check2 && check3) ? 25 : 0;
     }
 
+    public int totalUpper() {
+        int counter = 0;
+
+        for (int i = 0; i < 5; i++) {
+            if (scoreBoard[i] == -1) {
+                return -1;
+            }
+            counter += scoreBoard[i];
+        }
+        return counter;
+    }
+
+    public int totalScore() {
+        int counter = 0;
+
+        for (int i = 6; i < 14; i++) {
+            if (scoreBoard[i] == -1) {
+                return -1;
+            }
+            counter += scoreBoard[i];
+        }
+        return counter;
+    }
+
+    public int bonus() {
+        if (scoreBoard[7] >= 63) {
+            return 35;
+        } else if (scoreBoard[7] == -1) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 }
 
 
