@@ -8,7 +8,7 @@ import yahtzee.game.Score;
 public class TestScore {
 
     @Test
-    public void smallStraight_1() {
+    public void smallStraighte() {
         // Arrange
         final Dice[] dices = new Dice[5];
         for (int i = 0; i < 5; i++) {

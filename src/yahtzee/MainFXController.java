@@ -52,17 +52,6 @@ public class MainFXController {
 
     private Image[] img = new Image[6];
 
-    private static <S, T> TableColumn<S, T> column(String title, Function<S, T> property) {
-        TableColumn<S, T> col = new TableColumn<>(title);
-        col.setCellValueFactory(cellData -> new ObservableValueBase<T>() {
-            @Override
-            public T getValue() {
-                return property.apply(cellData.getValue());
-            }
-        });
-        return col;
-    }
-
     public void initialize() {
         System.out.println("YAHTZEE STARTED!");
         this.gfx = new GameEngineFX();
@@ -200,35 +189,17 @@ public class MainFXController {
      * Put them in the rolling area
      */
     private void reRollFreeDice() {
-        if (!this.gfx.rou.dices[0].keep()) {
-            if (keptDice.getChildren().contains(dice1)) {
-                keptDice.getChildren().remove(dice1);
-                rollingDice.getChildren().add(dice1);
-            }
-        }
-        if (!this.gfx.rou.dices[1].keep()) {
-            if (keptDice.getChildren().contains(dice2)) {
-                keptDice.getChildren().remove(dice2);
-                rollingDice.getChildren().add(dice2);
-            }
-        }
-        if (!this.gfx.rou.dices[2].keep()) {
-            if (keptDice.getChildren().contains(dice3)) {
-                keptDice.getChildren().remove(dice3);
-                rollingDice.getChildren().add(dice3);
-            }
-        }
-        if (!this.gfx.rou.dices[3].keep()) {
-            if (keptDice.getChildren().contains(dice4)) {
-                keptDice.getChildren().remove(dice4);
-                rollingDice.getChildren().add(dice4);
-            }
-        }
-        if (!this.gfx.rou.dices[4].keep()) {
-            if (keptDice.getChildren().contains(dice5)) {
-                keptDice.getChildren().remove(dice5);
-                rollingDice.getChildren().add(dice5);
-            }
+        moveDiceToRolling(dice1, 0);
+        moveDiceToRolling(dice2, 1);
+        moveDiceToRolling(dice3, 2);
+        moveDiceToRolling(dice4, 3);
+        moveDiceToRolling(dice5, 4);
+    }
+
+    private void moveDiceToRolling(ImageView dice1, int index) {
+        if (!this.gfx.rou.dices[index].keep() && keptDice.getChildren().contains(dice1)) {
+            keptDice.getChildren().remove(dice1);
+            rollingDice.getChildren().add(dice1);
         }
     }
 
@@ -241,7 +212,7 @@ public class MainFXController {
             String textRealScore = possibleScore[i] == -1 ? "" : Integer.toString(possibleScore[i]);
             String testScore = score[i] == 0 ? "" : Integer.toString(score[i]);
             String toAdd;
-            if (!testScore.equals("") && textRealScore.equals("")) {
+            if (!"".equals(testScore) && "".equals(textRealScore)) {
                 toAdd = testScore + "R";
             } else {
                 toAdd = textRealScore;
@@ -295,6 +266,7 @@ public class MainFXController {
                 break;
             default:
                 diceImg = dice1;
+                break;
         }
 
         // Change area for dice if needed

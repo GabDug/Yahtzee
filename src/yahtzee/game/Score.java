@@ -1,4 +1,4 @@
-package yahtzee;
+package yahtzee.game;
 
 import java.util.Arrays;
 
@@ -6,18 +6,16 @@ public class Score {
     private int[] tempScoreBoard = new int[16];
     private int[] scoreBoard = new int[16];
 
-
     public Score() {
         for (int i = 0; i < 16; i++) {
-            tempScoreBoard[i] = 0;
+            this.tempScoreBoard[i] = 0;
         }
         for (int i = 0; i < 16; i++) {
-            scoreBoard[i] = -1;
+            this.scoreBoard[i] = -1;
         }
     }
 
     public static String lower(int i) {
-
         switch (i) {
             case 1:
                 return "Ones";
@@ -56,7 +54,102 @@ public class Score {
         }
     }
 
-    public void maxScore(Dice[] dices) {
+    protected static int threeOfKind(Dice[] dices) {
+        if ((dices[0].value() == dices[1].value() && dices[1].value() == dices[2].value()) ||
+                (dices[1].value() == dices[2].value() && dices[2].value() == dices[3].value()) ||
+                (dices[2].value() == dices[3].value() && dices[3].value() == dices[4].value())) {
+
+            return sumDices(dices);
+        } else {
+            return 0;
+        }
+    }
+
+    public static int fourOfKind(Dice[] dices) {
+        int[] x = new int[6];
+        for (int i = 0; i < dices.length; i++) {
+            x[i] = (dices[i].value());
+        }
+        Arrays.sort(x);
+        if ((x[0] == x[3]) || (x[1] == x[4]))
+            return sumDices(dices);
+        return 0;
+    }
+
+    public static int smallStraight(Dice[] dices) {
+        int counter = 0;
+
+        int[] x = new int[6];
+        for (int i = 0; i < dices.length; i++) {
+            x[i] = (dices[i].value());
+        }
+        Arrays.sort(x);
+
+        for (int i = 0; i < x.length - 1; i++) {
+            if (x[i + 1] == x[i] + 1) {
+                counter++;
+            } else if (x[i + 1] == x[i]) {
+                continue;
+            } else {
+                counter = 0;
+            }
+            if (counter == 3) {
+                return 30;
+            }
+        }
+        return 0;
+    }
+
+    public static int largeStraight(Dice[] dices) {
+        int counter = 0;
+
+        Dice[] sortDices;
+        sortDices = dices.clone();
+
+        Arrays.sort(sortDices);
+
+        for (int i = 0; i < sortDices.length - 1; i++) {
+            if (sortDices[i + 1].value() == sortDices[i].value() + 1) {
+                counter++;
+            } else if (sortDices[i + 1].value() == sortDices[i].value()) {
+                continue;
+            } else {
+                counter = 0;
+            }
+            if (counter == 4) {
+                return 40;
+            }
+        }
+        return 0;
+    }
+
+    private static int sumDices(Dice[] dices) {
+        int score = 0;
+        for (int i = 0; i < dices.length; i++) {
+            score = score + dices[i].value();
+        }
+        return score;
+    }
+
+    public static int yahtzee(Dice[] dices) {
+        int[] counts = new int[6];
+        for (int i = 0; i < dices.length; i++) {
+            counts[dices[i].value() - 1]++;
+        }
+
+        boolean check5 = false;
+        for (int i : counts) {
+            check5 |= (i == 5); //found 3 of some number
+            if (i == 5) {
+                return 50;
+            }
+
+        }
+        return 0;
+
+    }
+
+    public void updateMaxScore(Dice[] dices) {
         // First reset score
         for (int diceValue = 0; diceValue < 16; diceValue++) {
             tempScoreBoard[diceValue] = 0;
@@ -105,18 +198,21 @@ public class Score {
     }
 
     public boolean isAvailable(int scoreToCheck) {
-        return scoreBoard[scoreToCheck - 1] == -1;
+        if (scoreToCheck == 7 || scoreToCheck == 8 || scoreToCheck == 16) {
+            return false;
+            // SUM / BONUS AND TOTAL SCORE ARE NOT AVAILABLE
+        }
+        return this.scoreBoard[scoreToCheck - 1] == -1;
     }
 
     private void saveScore(int scorePos, int scoreValue) {
-        scoreBoard[scorePos - 1] = scoreValue;
+        this.scoreBoard[scorePos - 1] = scoreValue;
     }
 
     public void selectScore(Dice[] dices, int scorePos) {
-        this.maxScore(dices);
+        this.updateMaxScore(dices);
         this.saveScore(scorePos, tempScoreBoard[scorePos - 1]);
     }
-
 
     protected int fullhouse(Dice[] dices) {
         int[] counts = new int[6];
@@ -134,105 +230,6 @@ public class Score {
             if (i == 5) return 25; //found a Yahtzee so stop and return true
         }
         return (check2 && check3) ? 25 : 0;
-    }
-
-    protected int threeOfKind(Dice[] dices) {
-        System.out.println(dices);
-        if ((dices[0].value() == dices[1].value() && dices[1].value() == dices[2].value()) ||
-                (dices[1].value() == dices[2].value() && dices[2].value() == dices[3].value()) ||
-                (dices[2].value() == dices[3].value() && dices[3].value() == dices[4].value())) {
-
-            return sumDices(dices);
-        } else {
-            return 0;
-        }
-    }
-
-    public int fourOfKind(Dice[] dices) {
-        int counter = 0;
-
-        int[] x = new int[6];
-        for (int i = 0; i < dices.length; i++) {
-            x[i] = (dices[i].value());
-        }
-        Arrays.sort(x);
-        if ((x[0] == x[3]) || (x[1] == x[4]))
-            return sumDices(dices);
-        return 0;
-    }
-
-    public int smallStraight(Dice[] dices) {
-        int counter = 0;
-
-        int[] x = new int[6];
-        for (int i = 0; i < dices.length; i++) {
-            x[i] = (dices[i].value());
-        }
-        Arrays.sort(x);
-
-        for (int i = 0; i < x.length - 1; i++) {
-            if (x[i + 1] == x[i] + 1) {
-                counter++;
-            } else if (x[i + 1] == x[i]) {
-                continue;
-            } else {
-                counter = 0;
-            }
-            if (counter == 3) {
-                return 30;
-            }
-        }
-        return 0;
-    }
-
-    public int largeStraight(Dice[] dices) {
-        int counter = 0;
-
-        Dice[] sortDices;
-        sortDices = dices.clone();
-
-        Arrays.sort(sortDices);
-
-        for (int i = 0; i < sortDices.length - 1; i++) {
-            if (sortDices[i + 1].value() == sortDices[i].value() + 1) {
-                counter++;
-            } else if (sortDices[i + 1].value() == sortDices[i].value()) {
-                continue;
-            } else {
-                counter = 0;
-            }
-            if (counter == 4) {
-                return 40;
-            }
-        }
-        return 0;
-    }
-
-
-    private int sumDices(Dice[] dices) {
-        int score = 0;
-        for (int i = 0; i < dices.length; i++) {
-            score = score + dices[i].value();
-        }
-        return score;
-    }
-
-    public int yahtzee(Dice[] dices) {
-        int[] counts = new int[6];
-        for (int i = 0; i < dices.length; i++) {
-            counts[dices[i].value() - 1]++;
-        }
-
-        boolean check5 = false;
-        for (int i : counts) {
-            check5 |= (i == 5); //found 3 of some number
-            if (i == 5) {
-                return 50;
-            }
-
-        }
-        return 0;
-
     }
 
 }

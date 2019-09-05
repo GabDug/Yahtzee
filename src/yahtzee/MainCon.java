@@ -14,11 +14,9 @@ public class MainCon {
                 case "1":
                     GameEngine game = new GameEngine();
                     break;
-
                 case "2":
                     System.out.println("Multiplayer is coming (like the winter)");
                     break;
-
                 case "3":
                     sc.close();
                     System.exit(0);
@@ -26,7 +24,6 @@ public class MainCon {
                 default:
                     System.out.println("Please choose 1, 2 or 3");
                     break;
-
             }
         } while (true);
     }
