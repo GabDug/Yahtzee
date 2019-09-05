@@ -125,8 +125,8 @@ public class Score {
 
     private static int sumDices(Dice[] dices) {
         int score = 0;
-        for (int i = 0; i < dices.length; i++) {
-            score = score + dices[i].value();
+        for (Dice dice : dices) {
+            score = score + dice.value();
         }
         return score;
     }
@@ -161,8 +161,8 @@ public class Score {
 
     private void upperScore(Dice[] dices) {
         for (int diceValue = 0; diceValue < 6; diceValue++) {
-            for (int value = 0; value < 5; value++) {
-                if (dices[value].value() == diceValue + 1) {
+            for (Dice dice : dices) {
+                if (dice.value() == diceValue + 1) {
                     tempScoreBoard[diceValue] += diceValue + 1;
                 }
             }
@@ -218,10 +218,9 @@ public class Score {
 
     protected int fullhouse(Dice[] dices) {
         int[] counts = new int[6];
-        for (int i = 0; i < dices.length; i++)
         //increase the relevant counter
-        {
-            counts[dices[i].value() - 1]++;
+        for (Dice dice : dices) {
+            counts[dice.value() - 1]++;
         }
         //now check we've got a 2 and a 3
         boolean check2 = false;

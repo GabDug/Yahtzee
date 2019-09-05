@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -15,24 +16,24 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import yahtzee.game.Score;
-import yahtzee.table.ScoreTable;
+import yahtzee.table.ScoreRow;
 
 public class MainFXController {
-    public static int MAX_SCORE_NAME = 16;
-
+    public static final int MAX_SCORE_NAME = 16;
+    private static final int MAX_PLAYERS = 4;
     public TableView tableView;
     public TableColumn player1;
     public TableColumn scoreName;
-    public TableColumn player2;
+    //public TableColumn player2;
     public Button reRollButton;
     public GridPane rollingDice;
     public GridPane keptDice;
 
     @FXML
     private Text scoreLabel;
-
+/*
     @FXML
-    private TableColumn<ScoreTable, String> scoreColumn;
+    private TableColumn<ScoreRow, String> scoreColumn;*/
 
     @FXML
     private ImageView dice1;
@@ -64,14 +65,16 @@ public class MainFXController {
         updateThrowLeft();
         // Add a scoreboard with only labels, not actual score!
         updateScore();
-        /*
-        Inspired from https://stackoverflow.com/questions/12499269/javafx-tableview-detect-a-doubleclick-on-a-cell
-        */
 
+        /*
+        Taken and modified from https://stackoverflow.com/questions/12499269/javafx-tableview-detect-a-doubleclick-on-a-cell
+        The cell factory allows us to handle click (and double click) events on a single cell, as well as setting
+        formatting rules for each cell (e.g. color)
+        */
         Callback<TableColumn, TableCell> cellFactory =
                 new Callback<TableColumn, TableCell>() {
                     public TableCell call(TableColumn p) {
-                        TableCell cell = new TableCell<ScoreTable, String>() {
+                        TableCell<ScoreRow, String> cell = new TableCell<ScoreRow, String>() {
                             @Override
                             public void updateItem(String item, boolean empty) {
                                 super.updateItem(item, empty);
@@ -81,6 +84,7 @@ public class MainFXController {
                                 } else if (item != null) {
                                     setStyle("-fx-text-fill: black;");
                                 }
+                                setText("Y");
                                 setText(empty ? null : getString().replace("R", ""));
                                 setGraphic(null);
                             }
@@ -112,12 +116,19 @@ public class MainFXController {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         // Set the CellFactory to allow format and events (click) on cells
         player1.setCellFactory(cellFactory);
-        player2.setCellFactory(cellFactory);
+        // player2.setCellFactory(cellFactory);
         // Disable sorting not to mess with our indexes!
         player1.setSortable(false);
-        player2.setSortable(false);
+        // player2.setSortable(false);
         scoreName.setSortable(false);
 
+        for (int player = 1; player < MAX_PLAYERS; player++) {
+            TableColumn playerN = new TableColumn<>("D" + (player + 1));
+            playerN.setCellValueFactory(new PropertyValueFactory<>("player" + (player + 1)));
+            playerN.setCellFactory(cellFactory);
+            playerN.setSortable(false);
+            tableView.getColumns().add(playerN);
+        }
         // Put dices back in line (not in rolling area)
         this.resetDice();
 
@@ -150,14 +161,14 @@ public class MainFXController {
         if (gfx.scoreSelect(row)) {
             // Reset GUI for new round
             // updateScore(gfx.scoreboardArr, gfx.currentPlayer);
-            updateScoreRealOnly(gfx.scoreboardArr, gfx.currentPlayer);
+            updateScoreRealOnly(gfx.scoreboardArr);
             //updateScore(gfx.getCurrentScoreboard().getMaxScore(), gfx.getCurrentScoreboard().getScore());
             updateThrowLeft();
             resetDice();
             updateDices();
             reRollButton.setDisable(false);
         } else {
-            System.out.println("AIIE");
+            System.out.println("Can't click here!");
         }
     }
 
@@ -202,91 +213,59 @@ public class MainFXController {
     /**
      * Print the latest scoreboard, clearing the old one
      */
-    private void updateScore(int[] score, int[] possibleScore) {
-        tableView.getItems().clear();
-        for (int i = 0; i < 16; i++) {
-            String textRealScore = possibleScore[i] == -1 ? "" : Integer.toString(possibleScore[i]);
-            String testScore = score[i] == 0 ? "" : Integer.toString(score[i]);
-            String toAdd;
-
-            if (!"".equals(testScore) && "".equals(textRealScore)) {
-                toAdd = testScore + "R";
-            } else {
-                toAdd = textRealScore;
-            }
-
-            tableView.getItems().add(new ScoreTable(Score.lower(i + 1), toAdd, textRealScore
-            ));
-        }
-    }
-
     private void updateScore(Score[] scoreboards, int currentPlayer) {
-        System.out.println("Player Current:" + currentPlayer);
         tableView.getItems().clear();
-        // for (int player = 0; player < 2; player++) {
+        //tableView.getItems().
         // TODO Update for more than 2 players
-        // TODO CLeanup
+        int[][] scores = new int[MAX_PLAYERS][];
+        for (int player = 0; player < MAX_PLAYERS; player++) {
+            scores[player] = scoreboards[player].getScore();
+        }
         int[] possibleScore = scoreboards[0].getMaxScore();
-        int[] score = scoreboards[0].getScore();
-        int[] possibleScore2 = scoreboards[1].getMaxScore();
-        int[] score2 = scoreboards[1].getScore();
-        for (int i = 0; i < 16; i++) {
-            String player1;
-            String textPossibleScore = possibleScore[i] == 0 ? "" : Integer.toString(possibleScore[i]);
-            String textRealScore = score[i] == -1 ? "" : Integer.toString(score[i]);
-            if (currentPlayer == 0 && "".equals(textRealScore) && !"".equals(textPossibleScore)) {
-                player1 = textPossibleScore + "R";
-            } else {
-                player1 = textRealScore;
+
+        for (int i = 0; i < MAX_SCORE_NAME; i++) {
+            String[] scoreText = new String[MAX_PLAYERS];
+            for (int player = 0; player < MAX_PLAYERS; player++) {
+                String textPossibleScore = possibleScore[i] == 0 ? "" : Integer.toString(possibleScore[i]);
+                String textRealScore = scores[player][i] == -1 ? "" : Integer.toString(scores[player][i]);
+                if (currentPlayer == player && "".equals(textRealScore) && !"".equals(textPossibleScore)) {
+                    scoreText[player] = textPossibleScore + "R";
+                } else {
+                    scoreText[player] = textRealScore;
+                }
             }
-            String player2;
-            String textPossibleScore2 = possibleScore2[i] == 0 ? "" : Integer.toString(possibleScore2[i]);
-            String textRealScore2 = score2[i] == -1 ? "" : Integer.toString(score2[i]);
-            if (currentPlayer == 1 && "".equals(textRealScore2) && !"".equals(textPossibleScore2)) {
-                player2 = textPossibleScore2 + "R";
-            } else {
-                player2 = textRealScore2;
-            }
-
-
-            tableView.getItems().add(new ScoreTable(Score.lower(i + 1), player1, player2
-            ));
-            //   }
+            tableView.getItems().add(new ScoreRow(Score.lower(i + 1), scoreText));
         }
-
-    }
-
-    private void updateScoreRealOnly(Score[] scoreboards, int currentPlayer) {
-        tableView.getItems().clear();
-
-        int[] score = scoreboards[0].getScore();
-        int[] score2 = scoreboards[1].getScore();
-        for (int i = 0; i < 16; i++) {
-            String player1;
-            String textRealScore = score[i] == -1 ? "" : Integer.toString(score[i]);
-
-            player1 = textRealScore;
-
-            String player2;
-            String textRealScore2 = score2[i] == -1 ? "" : Integer.toString(score2[i]);
-
-            player2 = textRealScore2;
-
-
-            tableView.getItems().add(new ScoreTable(Score.lower(i + 1), player1, player2
-            ));
-            //   }
-        }
-
     }
 
     /**
-     * Put an empty scoreboard
+     * Provides a scoreboard without clickable options
+     */
+    private void updateScoreRealOnly(Score[] scoreboards) {
+        tableView.getItems().clear();
+        // TODO Update for more than 2 players
+        int[][] scores = new int[MAX_PLAYERS][];
+        for (int player = 0; player < MAX_PLAYERS; player++) {
+            scores[player] = scoreboards[player].getScore();
+        }
+
+        for (int i = 0; i < MAX_SCORE_NAME; i++) {
+            String[] scoreText = new String[MAX_PLAYERS];
+            for (int player = 0; player < MAX_PLAYERS; player++) {
+                String textRealScore = scores[player][i] == -1 ? "" : Integer.toString(scores[player][i]);
+                scoreText[player] = textRealScore;
+            }
+            tableView.getItems().add(new ScoreRow(Score.lower(i + 1), scoreText));
+        }
+    }
+
+    /**
+     * Put an empty scoreboard, with only the "Score Name" column
      */
     private void updateScore() {
         tableView.getItems().clear();
-        for (int i = 0; i < 16; i++) {
-            tableView.getItems().add(new ScoreTable(Score.lower(i + 1), "", ""
+        for (int i = 0; i < MAX_SCORE_NAME; i++) {
+            tableView.getItems().add(new ScoreRow(Score.lower(i + 1), "", ""
             ));
         }
     }

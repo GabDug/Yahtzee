@@ -1,7 +1,6 @@
 package test;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 import yahtzee.game.Dice;
 import yahtzee.game.Score;
@@ -24,7 +23,7 @@ public class TestScore {
         final int expected = 30;
 
         // Act
-        final int actual = scoreboard.smallStraight(dices);
+        final int actual = Score.smallStraight(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);
@@ -47,7 +46,7 @@ public class TestScore {
         final int expected = 14;
 
         // Act
-        final int actual = scoreboard.fourOfKind(dices);
+        final int actual = Score.fourOfKind(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);
@@ -70,7 +69,7 @@ public class TestScore {
         final int expected = 40;
 
         // Act
-        final int actual = scoreboard.largeStraight(dices);
+        final int actual = Score.largeStraight(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);
@@ -94,7 +93,7 @@ public class TestScore {
         final int expected = 50;
 
         // Act
-        final int actual = scoreboard.yahtzee(dices);
+        final int actual = Score.yahtzee(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);

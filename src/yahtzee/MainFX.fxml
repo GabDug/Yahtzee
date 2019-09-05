@@ -104,11 +104,11 @@
                     <PropertyValueFactory property="player1"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="player2" text="P2">
-                <cellValueFactory>
-                    <PropertyValueFactory property="player2"/>
-                </cellValueFactory>
-            </TableColumn>
+            <!-- <TableColumn fx:id="player2" text="P2">
+                 <cellValueFactory>
+                     <PropertyValueFactory property="player2"/>
+                 </cellValueFactory>
+             </TableColumn>-->
         </columns>
         <items>
             <FXCollections fx:factory="observableArrayList">

@@ -3,27 +3,27 @@ package yahtzee;
 import yahtzee.game.Score;
 
 public class GameEngineFX {
-    public Score[] scoreboardArr = new Score[2];
+    public static final int MAX_SCORE_NAME = 16;
+    private static final int MAX_PLAYERS = 4;
+    public Score[] scoreboardArr = new Score[MAX_PLAYERS];
     public int currentPlayer = 0;
-
     public RoundFX rou;
 
     public GameEngineFX() {
-        scoreboardArr[0] = new Score();
-        scoreboardArr[1] = new Score();
-        rou = new RoundFX(this.scoreboardArr, currentPlayer);
+        // Set Scoreboard for each player
+        for (int player = 0; player < MAX_PLAYERS; player++) {
+            scoreboardArr[player] = new Score();
+        }
+        rou = new RoundFX(this.scoreboardArr);
         rou.setPlayer(0);
     }
 
     public void reset() {
-        if (this.currentPlayer == 0) {
-            System.out.println("Change player!");
-            this.currentPlayer = 1;
-        }
-        else if (this.currentPlayer == 1) {
+        this.currentPlayer++;
+        if (this.currentPlayer == MAX_PLAYERS) {
             this.currentPlayer = 0;
-            System.out.println("Change player2!");
         }
+
         this.rou.setPlayer(this.currentPlayer);
         this.rou.throwLeft = 3;
         for (int dice = 0; dice < 5; dice++) {
@@ -35,8 +35,9 @@ public class GameEngineFX {
         if (this.rou.throwLeft > 0) {
             this.rou.throwLeft--;
             this.rou.rollDices();
-            this.scoreboardArr[0].updateMaxScore(this.rou.dices);
-            this.scoreboardArr[1].updateMaxScore(this.rou.dices);
+            for (Score scoreboard : this.scoreboardArr) {
+                scoreboard.updateMaxScore(this.rou.dices);
+            }
         }
     }
 
@@ -61,7 +62,7 @@ public class GameEngineFX {
         return false;
     }
 
-    public Score getCurrentScoreboard(){
+    public Score getCurrentScoreboard() {
         return this.scoreboardArr[this.currentPlayer];
     }
 }
