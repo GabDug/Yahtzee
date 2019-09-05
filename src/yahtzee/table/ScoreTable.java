@@ -1,4 +1,4 @@
-package table;
+package yahtzee.table;
 
 import javafx.beans.property.SimpleStringProperty;
 

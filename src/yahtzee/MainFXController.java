@@ -14,8 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import table.ScoreTable;
 import yahtzee.game.Score;
+import yahtzee.table.ScoreTable;
 
 public class MainFXController {
     public static int MAX_SCORE_NAME = 16;
@@ -95,7 +95,7 @@ public class MainFXController {
                             public void handle(MouseEvent event) {
                                 if (event.getClickCount() > 1) {
                                     TableCell c = (TableCell) event.getSource();
-                                    System.out.println("DEBUG Row Clicked" + c.getTableRow().getIndex());
+                                    System.out.println("DEBUG Row Clicked " + c.getTableRow().getIndex());
                                     if (c.getTableRow().getIndex() < MAX_SCORE_NAME) {
                                         clickCell(c.getTableRow().getIndex());
                                     } else {
@@ -112,6 +112,7 @@ public class MainFXController {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         // Set the CellFactory to allow format and events (click) on cells
         player1.setCellFactory(cellFactory);
+        player2.setCellFactory(cellFactory);
         // Disable sorting not to mess with our indexes!
         player1.setSortable(false);
         player2.setSortable(false);
@@ -148,11 +149,15 @@ public class MainFXController {
     private void clickCell(int row) {
         if (gfx.scoreSelect(row)) {
             // Reset GUI for new round
-            updateScore(gfx.scoreboard.getMaxScore(), gfx.scoreboard.getScore());
+            // updateScore(gfx.scoreboardArr, gfx.currentPlayer);
+            updateScoreRealOnly(gfx.scoreboardArr, gfx.currentPlayer);
+            //updateScore(gfx.getCurrentScoreboard().getMaxScore(), gfx.getCurrentScoreboard().getScore());
             updateThrowLeft();
             resetDice();
             updateDices();
             reRollButton.setDisable(false);
+        } else {
+            System.out.println("AIIE");
         }
     }
 
@@ -167,8 +172,8 @@ public class MainFXController {
         this.moveToRolling();
         this.updateThrowLeft();
         this.updateDices();
-        this.updateScore(this.gfx.scoreboard.getMaxScore(), this.gfx.scoreboard.getScore());
-
+        //this.updateScore(this.gfx.getCurrentScoreboard().getMaxScore(), this.gfx.getCurrentScoreboard().getScore());
+        this.updateScore(this.gfx.scoreboardArr, this.gfx.currentPlayer);
         // Disable button when you can't throw anymore!
         if (this.gfx.rou.throwLeft == 0) {
             this.reRollButton.setDisable(true);
@@ -203,6 +208,7 @@ public class MainFXController {
             String textRealScore = possibleScore[i] == -1 ? "" : Integer.toString(possibleScore[i]);
             String testScore = score[i] == 0 ? "" : Integer.toString(score[i]);
             String toAdd;
+
             if (!"".equals(testScore) && "".equals(textRealScore)) {
                 toAdd = testScore + "R";
             } else {
@@ -212,6 +218,66 @@ public class MainFXController {
             tableView.getItems().add(new ScoreTable(Score.lower(i + 1), toAdd, textRealScore
             ));
         }
+    }
+
+    private void updateScore(Score[] scoreboards, int currentPlayer) {
+        System.out.println("Player Current:" + currentPlayer);
+        tableView.getItems().clear();
+        // for (int player = 0; player < 2; player++) {
+        // TODO Update for more than 2 players
+        // TODO CLeanup
+        int[] possibleScore = scoreboards[0].getMaxScore();
+        int[] score = scoreboards[0].getScore();
+        int[] possibleScore2 = scoreboards[1].getMaxScore();
+        int[] score2 = scoreboards[1].getScore();
+        for (int i = 0; i < 16; i++) {
+            String player1;
+            String textPossibleScore = possibleScore[i] == 0 ? "" : Integer.toString(possibleScore[i]);
+            String textRealScore = score[i] == -1 ? "" : Integer.toString(score[i]);
+            if (currentPlayer == 0 && "".equals(textRealScore) && !"".equals(textPossibleScore)) {
+                player1 = textPossibleScore + "R";
+            } else {
+                player1 = textRealScore;
+            }
+            String player2;
+            String textPossibleScore2 = possibleScore2[i] == 0 ? "" : Integer.toString(possibleScore2[i]);
+            String textRealScore2 = score2[i] == -1 ? "" : Integer.toString(score2[i]);
+            if (currentPlayer == 1 && "".equals(textRealScore2) && !"".equals(textPossibleScore2)) {
+                player2 = textPossibleScore2 + "R";
+            } else {
+                player2 = textRealScore2;
+            }
+
+
+            tableView.getItems().add(new ScoreTable(Score.lower(i + 1), player1, player2
+            ));
+            //   }
+        }
+
+    }
+
+    private void updateScoreRealOnly(Score[] scoreboards, int currentPlayer) {
+        tableView.getItems().clear();
+
+        int[] score = scoreboards[0].getScore();
+        int[] score2 = scoreboards[1].getScore();
+        for (int i = 0; i < 16; i++) {
+            String player1;
+            String textRealScore = score[i] == -1 ? "" : Integer.toString(score[i]);
+
+            player1 = textRealScore;
+
+            String player2;
+            String textRealScore2 = score2[i] == -1 ? "" : Integer.toString(score2[i]);
+
+            player2 = textRealScore2;
+
+
+            tableView.getItems().add(new ScoreTable(Score.lower(i + 1), player1, player2
+            ));
+            //   }
+        }
+
     }
 
     /**

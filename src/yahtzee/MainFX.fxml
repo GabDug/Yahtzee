@@ -104,7 +104,7 @@
                     <PropertyValueFactory property="player1"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="player2" text="Score">
+            <TableColumn fx:id="player2" text="P2">
                 <cellValueFactory>
                     <PropertyValueFactory property="player2"/>
                 </cellValueFactory>

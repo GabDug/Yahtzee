@@ -41,7 +41,6 @@ public class Dice implements Comparable<Dice> {
         this.value = newValue;
     }
 
-
     /**
      * Allows sorting and comparing of dice, based on their face value
      */
@@ -49,5 +48,4 @@ public class Dice implements Comparable<Dice> {
     public int compareTo(@NotNull Dice o) {
         return Integer.compare(value, o.value);
     }
-
 }
