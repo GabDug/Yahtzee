@@ -68,6 +68,7 @@ public class Round {
         int userChoice;
         Scanner input = new Scanner(System.in);
         userChoice = ConsoleUtils.menu();
+        input.close();
         if (userChoice == 1) {
             this.toggleKeeper();
         }

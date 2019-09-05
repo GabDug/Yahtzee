@@ -12,6 +12,7 @@ public class ConsoleUtils {
         System.out.println("3 - Score Selection");
         System.out.println("-------------------------");
         selection = input.nextInt();
+        input.close();
         return selection;
     }
 
@@ -22,6 +23,7 @@ public class ConsoleUtils {
         System.out.println("Input 0 to exit this menu");
 
         selection = input.nextInt();
+        input.close();
         return selection;
     }
 
@@ -33,6 +35,7 @@ public class ConsoleUtils {
         System.out.println("Input 0 to exit this menu");
 
         selection = input.nextInt();
+        input.close();
         return selection;
     }
 
