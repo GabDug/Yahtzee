@@ -2,7 +2,7 @@ package yahtzee;
 
 import java.util.Scanner;
 
-public class Console {
+public class ConsoleUtils {
     static int menu() {
         int selection;
         Scanner input = new Scanner(System.in);

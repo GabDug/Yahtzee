@@ -30,20 +30,12 @@ public class RoundFX {
         this.dices[keep - 1].toggleKeeper();
     }
 
-    private void reRoll() {
-        if (this.throwLeft > 0) {
-            this.throwLeft--;
-             // this.rollDices();
-            // this.printDices();
-        } else {
-            System.out.println("No throw left! Please choose a score.");
-        }
-    }
+
 
     public boolean scoreSelectCheck(int score) {
         if (this.scoreboard.isAvailable(score + 1)) {
             this.scoreboard.selectScore(this.dices, score + 1);
-           // this.scoreboard.printScore();
+            // this.scoreboard.printScore();
             return true;
         } else {
             return false;

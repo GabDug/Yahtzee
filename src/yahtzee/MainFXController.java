@@ -1,7 +1,6 @@
 package yahtzee;
 
 import com.sun.istack.internal.NotNull;
-import javafx.beans.value.ObservableValueBase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,8 +16,6 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 import table.ScoreTable;
 import yahtzee.game.Score;
-
-import java.util.function.Function;
 
 public class MainFXController {
     public static int MAX_SCORE_NAME = 16;
@@ -165,18 +162,12 @@ public class MainFXController {
     @FXML
     protected void rollEvent(ActionEvent event) {
         // Remove a throw and update text
-        this.gfx.rou.throwLeft--;
+        this.gfx.reRoll();
+
+        this.moveToRolling();
         this.updateThrowLeft();
-
-        // Roll dices that are supposed to
-        this.reRollFreeDice();
-        this.gfx.rou.rollDices();
         this.updateDices();
-
-        // Compute maxscore
-        this.gfx.scoreboard.updateMaxScore(this.gfx.rou.dices);
-        // Update score
-        updateScore(this.gfx.scoreboard.getMaxScore(), this.gfx.scoreboard.getScore());
+        this.updateScore(this.gfx.scoreboard.getMaxScore(), this.gfx.scoreboard.getScore());
 
         // Disable button when you can't throw anymore!
         if (this.gfx.rou.throwLeft == 0) {
@@ -188,7 +179,7 @@ public class MainFXController {
      * Roll all dices that are not kept
      * Put them in the rolling area
      */
-    private void reRollFreeDice() {
+    private void moveToRolling() {
         moveDiceToRolling(dice1, 0);
         moveDiceToRolling(dice2, 1);
         moveDiceToRolling(dice3, 2);

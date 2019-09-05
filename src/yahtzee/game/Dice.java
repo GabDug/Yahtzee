@@ -42,7 +42,9 @@ public class Dice implements Comparable<Dice> {
     }
 
 
-    /** Allows sorting and comparing of dice, based on their face value*/
+    /**
+     * Allows sorting and comparing of dice, based on their face value
+     */
     @Override
     public int compareTo(@NotNull Dice o) {
         return Integer.compare(value, o.value);

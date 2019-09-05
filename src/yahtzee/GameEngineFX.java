@@ -18,6 +18,14 @@ public class GameEngineFX {
 
     }
 
+    void reRoll() {
+        if (this.rou.throwLeft > 0) {
+            this.rou.throwLeft--;
+            this.rou.rollDices();
+            this.scoreboard.updateMaxScore(this.rou.dices);
+        }
+    }
+
     /**
      * Select
      *

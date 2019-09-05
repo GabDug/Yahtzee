@@ -67,7 +67,7 @@ public class Round {
     private void askInput() {
         int userChoice;
         Scanner input = new Scanner(System.in);
-        userChoice = Console.menu();
+        userChoice = ConsoleUtils.menu();
         if (userChoice == 1) {
             this.toggleKeeper();
         }
@@ -83,7 +83,7 @@ public class Round {
         int keep;
 
         while (true) {
-            keep = Console.keeperSelect();
+            keep = ConsoleUtils.keeperSelect();
             if (keep == 0) {
                 break;
             } else {
@@ -106,7 +106,7 @@ public class Round {
         int score;
 
         while (true) {
-            score = Console.scoreSelect();
+            score = ConsoleUtils.scoreSelect();
             if (score == 0)
                 break;
             if (this.scoreboard.isAvailable(score)) {
