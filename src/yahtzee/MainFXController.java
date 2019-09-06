@@ -116,14 +116,12 @@ public class MainFXController {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         // Set the CellFactory to allow format and events (click) on cells
         player1.setCellFactory(cellFactory);
-        // player2.setCellFactory(cellFactory);
         // Disable sorting not to mess with our indexes!
         player1.setSortable(false);
-        // player2.setSortable(false);
         scoreName.setSortable(false);
 
         for (int player = 1; player < MAX_PLAYERS; player++) {
-            TableColumn playerN = new TableColumn<>("D" + (player + 1));
+            TableColumn playerN = new TableColumn<>("P" + (player + 1));
             playerN.setCellValueFactory(new PropertyValueFactory<>("player" + (player + 1)));
             playerN.setCellFactory(cellFactory);
             playerN.setSortable(false);
