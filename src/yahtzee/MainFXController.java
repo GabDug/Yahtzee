@@ -18,7 +18,7 @@ import yahtzee.table.ScoreRow;
 
 public class MainFXController {
     private static final int MAX_SCORE_NAME = 16;
-    private static final int MAX_PLAYERS = 2;
+    private static int MAX_PLAYERS = 2;
     public TableView tableView;
     public TableColumn player1;
     public TableColumn scoreName;
@@ -332,5 +332,13 @@ public class MainFXController {
             rollingDice.getChildren().remove(dice5);
             keptDice.getChildren().add(dice5);
         }
+    }
+
+    public void setPlayerNumber(int i) {
+        System.out.println("SET");
+    }
+
+    public MainFXController(int playerNumber){
+        MAX_PLAYERS = playerNumber;
     }
 }
