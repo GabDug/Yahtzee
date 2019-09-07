@@ -5,8 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 public class Dice implements Comparable<Dice> {
-    private int sides, value;
-    private Random ran;
+    private final int sides;
+    private int value;
+    private final Random ran;
     private boolean keeper;
 
     public Dice(int num) {

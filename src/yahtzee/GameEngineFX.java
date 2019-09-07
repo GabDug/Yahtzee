@@ -2,12 +2,12 @@ package yahtzee;
 
 import yahtzee.game.Score;
 
-public class GameEngineFX {
+class GameEngineFX {
     public static final int MAX_SCORE_NAME = 16;
-    private static final int MAX_PLAYERS = 4;
-    public Score[] scoreboardArr = new Score[MAX_PLAYERS];
+    private static final int MAX_PLAYERS = 2;
+    public final Score[] scoreboardArr = new Score[MAX_PLAYERS];
     public int currentPlayer = 0;
-    public RoundFX rou;
+    public final RoundFX rou;
 
     public GameEngineFX() {
         // Set Scoreboard for each player
@@ -18,7 +18,7 @@ public class GameEngineFX {
         rou.setPlayer(0);
     }
 
-    public void reset() {
+    private void reset() {
         this.currentPlayer++;
         if (this.currentPlayer == MAX_PLAYERS) {
             this.currentPlayer = 0;

@@ -5,10 +5,10 @@ import yahtzee.game.Score;
 
 import java.util.Scanner;
 
-public class Round {
+class Round {
     private int throwLeft;
-    private Score scoreboard;
-    private Dice[] dices = new Dice[5];
+    private final Score scoreboard;
+    private final Dice[] dices = new Dice[5];
 
     public Round(Score scoreboard) {
         this.scoreboard = scoreboard;
@@ -66,17 +66,17 @@ public class Round {
 
     private void askInput() {
         int userChoice;
-        Scanner input = new Scanner(System.in);
-        userChoice = ConsoleUtils.menu();
-        input.close();
-        if (userChoice == 1) {
-            this.toggleKeeper();
-        }
-        if (userChoice == 2) {
-            this.reRoll();
-        }
-        if (userChoice == 3) {
-            this.scoreSelectCheck();
+        try (Scanner input = new Scanner(System.in)) {
+            userChoice = ConsoleUtils.menu();
+            if (userChoice == 1) {
+                this.toggleKeeper();
+            }
+            if (userChoice == 2) {
+                this.reRoll();
+            }
+            if (userChoice == 3) {
+                this.scoreSelectCheck();
+            }
         }
     }
 

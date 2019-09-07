@@ -2,7 +2,7 @@ package yahtzee;
 
 import java.util.Scanner;
 
-public class ConsoleUtils {
+class ConsoleUtils {
     static int menu() {
         int selection;
         Scanner input = new Scanner(System.in);
@@ -12,7 +12,7 @@ public class ConsoleUtils {
         System.out.println("3 - Score Selection");
         System.out.println("-------------------------");
         selection = input.nextInt();
-        input.close();
+       // input.close();
         return selection;
     }
 
@@ -23,7 +23,7 @@ public class ConsoleUtils {
         System.out.println("Input 0 to exit this menu");
 
         selection = input.nextInt();
-        input.close();
+        // input.close();
         return selection;
     }
 
@@ -35,7 +35,7 @@ public class ConsoleUtils {
         System.out.println("Input 0 to exit this menu");
 
         selection = input.nextInt();
-        input.close();
+        // input.close();
         return selection;
     }
 

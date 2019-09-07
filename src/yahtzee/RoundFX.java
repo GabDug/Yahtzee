@@ -5,8 +5,8 @@ import yahtzee.game.Score;
 
 public class RoundFX {
     public int throwLeft;
-    public Dice[] dices = new Dice[5];
-    private Score[] scoreboards;
+    public final Dice[] dices = new Dice[5];
+    private final Score[] scoreboards;
     private int currentPlayer;
 
 
@@ -44,6 +44,6 @@ public class RoundFX {
 
     public void setPlayer(int currentPlayer) {
         this.currentPlayer = currentPlayer;
-        System.out.println("Player " + currentPlayer);
+        // System.out.println("Player " + currentPlayer);
     }
 }

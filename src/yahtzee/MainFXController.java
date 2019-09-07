@@ -4,10 +4,7 @@ import com.sun.istack.internal.NotNull;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,25 +12,23 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import yahtzee.game.Rules;
 import yahtzee.game.Score;
 import yahtzee.table.ScoreRow;
 
 public class MainFXController {
-    public static final int MAX_SCORE_NAME = 16;
-    private static final int MAX_PLAYERS = 4;
+    private static final int MAX_SCORE_NAME = 16;
+    private static final int MAX_PLAYERS = 2;
     public TableView tableView;
     public TableColumn player1;
     public TableColumn scoreName;
-    //public TableColumn player2;
     public Button reRollButton;
     public GridPane rollingDice;
     public GridPane keptDice;
+    public Label title;
 
     @FXML
     private Text scoreLabel;
-/*
-    @FXML
-    private TableColumn<ScoreRow, String> scoreColumn;*/
 
     @FXML
     private ImageView dice1;
@@ -48,7 +43,7 @@ public class MainFXController {
 
     private GameEngineFX gfx;
 
-    private Image[] img = new Image[6];
+    private final Image[] img = new Image[6];
 
     public void initialize() {
         System.out.println("YAHTZEE STARTED!");
@@ -94,17 +89,14 @@ public class MainFXController {
                             }
                         };
 
-                        cell.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                            @Override
-                            public void handle(MouseEvent event) {
-                                if (event.getClickCount() > 1) {
-                                    TableCell c = (TableCell) event.getSource();
-                                    System.out.println("DEBUG Row Clicked " + c.getTableRow().getIndex());
-                                    if (c.getTableRow().getIndex() < MAX_SCORE_NAME) {
-                                        clickCell(c.getTableRow().getIndex());
-                                    } else {
-                                        System.out.println("DEBUG Cell is not clickable!");
-                                    }
+                        cell.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+                            if (event.getClickCount() > 1) {
+                                TableCell c = (TableCell) event.getSource();
+                                System.out.println("DEBUG Row Clicked " + c.getTableRow().getIndex());
+                                if (c.getTableRow().getIndex() < MAX_SCORE_NAME) {
+                                    clickCell(c.getTableRow().getIndex());
+                                } else {
+                                    System.out.println("DEBUG Cell is not clickable!");
                                 }
                             }
                         });
@@ -232,7 +224,8 @@ public class MainFXController {
                     scoreText[player] = textRealScore;
                 }
             }
-            tableView.getItems().add(new ScoreRow(Score.lower(i + 1), scoreText));
+
+            tableView.getItems().add(new ScoreRow(Rules.lower(i + 1), scoreText));
         }
     }
 
@@ -253,7 +246,7 @@ public class MainFXController {
                 String textRealScore = scores[player][i] == -1 ? "" : Integer.toString(scores[player][i]);
                 scoreText[player] = textRealScore;
             }
-            tableView.getItems().add(new ScoreRow(Score.lower(i + 1), scoreText));
+            tableView.getItems().add(new ScoreRow(Rules.lower(i + 1), scoreText));
         }
     }
 
@@ -263,7 +256,7 @@ public class MainFXController {
     private void updateScore() {
         tableView.getItems().clear();
         for (int i = 0; i < MAX_SCORE_NAME; i++) {
-            tableView.getItems().add(new ScoreRow(Score.lower(i + 1), "", ""
+            tableView.getItems().add(new ScoreRow(Rules.lower(i + 1), "", ""
             ));
         }
     }

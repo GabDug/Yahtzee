@@ -2,7 +2,7 @@ package yahtzee;
 
 import java.util.Scanner;
 
-public class MainCon {
+class MainCon {
     public static void main(String[] args) {
         System.out.println("Welcome to Yahtzee, let's start");
         String i;
@@ -10,7 +10,7 @@ public class MainCon {
         do {
             System.out.println("1 - Single player\n2 - Multiplayer\n3 - Exit\n");
             i = sc.nextLine();
-            sc.close();
+
             switch (i) {
                 case "1":
                     GameEngine game = new GameEngine();
@@ -19,6 +19,7 @@ public class MainCon {
                     System.out.println("Multiplayer is coming (like the winter)");
                     break;
                 case "3":
+                    sc.close();
                     System.exit(0);
                     break;
                 default:
@@ -26,6 +27,7 @@ public class MainCon {
                     break;
             }
         } while (true);
+
     }
 
 }
