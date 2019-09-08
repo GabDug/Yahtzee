@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.*?>
 
-    <GridPane xmlns:fx="http://javafx.com/fxml"
-              fx:controller="yahtzee.MenuController" alignment="center" hgap="10" vgap="10">
-    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" alignment="CENTER">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          fx:controller="yahtzee.MenuController" alignment="center" hgap="10" vgap="10">
+    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" spacing="5" alignment="CENTER">
 
         <Button text="Singleplayer" fx:id="singlePlayerButton"
                 onAction="#singlePlayer"/>
         <Button text="Multiplayer" fx:id="multiPlayerButton"
                 onAction="#multiPlayer"/>
+        <Spinner fx:id="spinner" min="2" max="5" initialValue="2" BorderPane.alignment="CENTER">
+
+
+        </Spinner>
+        <Button text="Launch" fx:id="multiPlayerLaunchButton"
+
+                onAction="#multiPlayerLaunch"/>
         <Button text="Exit" fx:id="exitButton"
                 onAction="#singlePlayer"/>
 

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -19,8 +20,14 @@ public class MenuController {
     public Button singlePlayerButton;
     public Button multiPlayerButton;
     public Button exitButton;
+    public Spinner spinner;
+    public Button multiPlayerLaunchButton;
 
     public void initialize() {
+        spinner.setVisible(false);
+        spinner.setManaged(false);
+        multiPlayerLaunchButton.setVisible(false);
+        multiPlayerLaunchButton.setManaged(false);
 
     }
 
@@ -48,7 +55,15 @@ public class MenuController {
 
     }
 
-    public void multiPlayer(ActionEvent event) throws IOException {
-        launchGame(event, 2);
+    public void multiPlayer(ActionEvent event) {
+        spinner.setVisible(true);
+        spinner.setManaged(true);
+        multiPlayerLaunchButton.setVisible(true);
+        multiPlayerLaunchButton.setManaged(true);
+    }
+
+
+    public void multiPlayerLaunch(ActionEvent event) throws IOException {
+        launchGame(event, (Integer) spinner.getValue());
     }
 }

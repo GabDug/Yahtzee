@@ -47,7 +47,7 @@ public class MainFXController {
 
     public void initialize() {
         System.out.println("YAHTZEE STARTED!");
-        this.gfx = new GameEngineFX();
+        this.gfx = new GameEngineFX(MAX_PLAYERS);
 
         img[0] = new Image("resources/dieWhite1.png");
         img[1] = new Image("resources/dieWhite2.png");

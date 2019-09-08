@@ -3,13 +3,15 @@ package yahtzee;
 import yahtzee.game.Score;
 
 class GameEngineFX {
-    public static final int MAX_SCORE_NAME = 16;
-    private static final int MAX_PLAYERS = 2;
-    public final Score[] scoreboardArr = new Score[MAX_PLAYERS];
-    public int currentPlayer = 0;
+    private static int MAX_PLAYERS;
     public final RoundFX rou;
+    public Score[] scoreboardArr;
+    public int currentPlayer = 0;
 
-    public GameEngineFX() {
+    public GameEngineFX(int playerNumber) {
+        MAX_PLAYERS = playerNumber;
+        scoreboardArr = new Score[MAX_PLAYERS];
+
         // Set Scoreboard for each player
         for (int player = 0; player < MAX_PLAYERS; player++) {
             scoreboardArr[player] = new Score();
