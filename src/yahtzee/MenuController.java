@@ -1,6 +1,7 @@
 package yahtzee;
 
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,5 +66,9 @@ public class MenuController {
 
     public void multiPlayerLaunch(ActionEvent event) throws IOException {
         launchGame(event, (Integer) spinner.getValue());
+    }
+
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

@@ -67,4 +67,14 @@ class GameEngineFX {
     public Score getCurrentScoreboard() {
         return this.scoreboardArr[this.currentPlayer];
     }
+
+    public boolean isGameOver() {
+        for (Score scoreboard : this.scoreboardArr) {
+            if (!scoreboard.isFull()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

@@ -95,7 +95,7 @@ public class Score {
     private int totalUpper() {
         int counter = 0;
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             if (scoreBoard[i] == -1) {
                 return -1;
             }
@@ -107,7 +107,7 @@ public class Score {
     private int totalScore() {
         int counter = 0;
 
-        for (int i = 6; i < 14; i++) {
+        for (int i = 6; i < 15; i++) {
             if (scoreBoard[i] == -1) {
                 return -1;
             }
@@ -124,6 +124,15 @@ public class Score {
         } else {
             return 0;
         }
+    }
+
+    public boolean isFull() {
+        for (int i = 0; i < 16; i++) {
+            if (scoreBoard[i] == -1) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 

@@ -12,14 +12,11 @@
         <Button text="Multiplayer" fx:id="multiPlayerButton"
                 onAction="#multiPlayer"/>
         <Spinner fx:id="spinner" min="2" max="5" initialValue="2" BorderPane.alignment="CENTER">
-
-
         </Spinner>
         <Button text="Launch" fx:id="multiPlayerLaunchButton"
-
                 onAction="#multiPlayerLaunch"/>
         <Button text="Exit" fx:id="exitButton"
-                onAction="#singlePlayer"/>
+                onAction="#exit"/>
 
     </VBox>
 </GridPane>
