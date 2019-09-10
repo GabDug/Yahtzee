@@ -3,13 +3,11 @@ package yahtzee;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -24,29 +22,39 @@ public class MenuController {
     public Button multiPlayerLaunchButton;
 
     public void initialize() {
+        // Hide the spinner, used to select player number, and the launch multiplayer button
+        // They will be sjown after the "Multiplayer" button is clicked.
+        // setVisible is to hide the element, setManaged is to "remove" it from parent node
+        // Thus, it will not take blank space
         spinner.setVisible(false);
         spinner.setManaged(false);
         multiPlayerLaunchButton.setVisible(false);
         multiPlayerLaunchButton.setManaged(false);
     }
 
-    public void singlePlayer(ActionEvent event) throws IOException {
-        launchGame(event, 1);
-    }
-
-    private void launchGame(ActionEvent event, int playerNumber) throws IOException {
+    private void launchGame(ActionEvent event, int playerNumber) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
-
+        // We assign the controller here, and not in the FXML file, so we can pass the number of players to the game
         GameController controller = new GameController(playerNumber);
         loader.setController(controller);
 
-        GridPane pane = loader.load();
+        GridPane pane = null;
+        try {
+            pane = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert pane != null;
         Scene newgame_scene = new Scene(pane);
         newgame_scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         app_stage.setScene(newgame_scene);
         app_stage.show();
+    }
+
+    public void singlePlayer(ActionEvent event) {
+        launchGame(event, 1);
     }
 
     public void multiPlayer(ActionEvent event) {
@@ -56,7 +64,7 @@ public class MenuController {
         multiPlayerLaunchButton.setManaged(true);
     }
 
-    public void multiPlayerLaunch(ActionEvent event) throws IOException {
+    public void multiPlayerLaunch(ActionEvent event) {
         launchGame(event, (Integer) spinner.getValue());
     }
 

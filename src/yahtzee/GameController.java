@@ -95,6 +95,7 @@ public class GameController {
                             }
                         };
 
+                        // Add the click event
                         cell.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
                             if (event.getClickCount() > 1) {
                                 TableCell c = (TableCell) event.getSource();
@@ -102,6 +103,7 @@ public class GameController {
                                 if (c.getTableRow().getIndex() < MAX_SCORE_NAME) {
                                     clickCell(c.getTableRow().getIndex());
                                 } else {
+                                    // If too much row are printed, they can't be clicked.
                                     System.out.println("DEBUG Cell is not clickable!");
                                 }
                             }
