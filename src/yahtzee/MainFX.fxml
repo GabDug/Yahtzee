@@ -20,7 +20,7 @@
           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
     <HBox GridPane.columnIndex="1" GridPane.rowIndex="7">
-        <Button text="Roll Dice" fx:id="reRollButton"
+        <Button id="button" text="Roll Dice" fx:id="reRollButton"
                 onAction="#rollEvent"/>
     </HBox>
 
