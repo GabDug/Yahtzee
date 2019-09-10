@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class Rules {
     /**
      * Check if there's a fullhouse possible
+     *
      * @param dices
      * @return possible score for the full house
      */
@@ -27,6 +28,7 @@ public class Rules {
 
     /**
      * Sum all the dices
+     *
      * @param dices
      * @return sum
      */
@@ -40,6 +42,7 @@ public class Rules {
 
     /**
      * Check if there's a Yahtzee
+     *
      * @param dices
      * @return possible score for the yahtzee
      */
@@ -123,6 +126,7 @@ public class Rules {
 
     /**
      * Gives text for each indice.
+     *
      * @param i row in the table, starting from 1
      * @return String to be printed, for each score row
      */

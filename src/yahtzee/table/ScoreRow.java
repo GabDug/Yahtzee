@@ -13,6 +13,11 @@ public class ScoreRow {
     private Object player4;
     private Object player5;
 
+    /**
+     * This class is used for the TableView object.
+     * It is instancieted in a way where we can choose the number of player.
+     * @param args
+     */
     public ScoreRow(Object... args) {
         Field[] fields = getClass().getDeclaredFields();
         int i = 0;

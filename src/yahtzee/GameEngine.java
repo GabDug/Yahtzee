@@ -70,12 +70,9 @@ class GameEngine {
         return false;
     }
 
-    public Score getCurrentScoreboard() {
-        return this.scoreboardArr[this.currentPlayer];
-    }
-
     /**
      * Check if the game is over, when the scoreboard is full.
+     *
      * @return boolean Is the game over ?
      */
     public boolean isGameOver() {

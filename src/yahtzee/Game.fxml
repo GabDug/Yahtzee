@@ -28,7 +28,6 @@
               GridPane.columnIndex="1" GridPane.rowIndex="8">
         <ImageView fx:id="dice1"
                    GridPane.columnIndex="1" GridPane.rowIndex="7"
-                   disable="false"
                    fitHeight="40.0" fitWidth="40.0"
                    layoutX="400.0" layoutY="22.0"
                    pickOnBounds="true"
@@ -40,7 +39,6 @@
         </ImageView>
         <ImageView fx:id="dice2"
                    GridPane.columnIndex="2" GridPane.rowIndex="7"
-                   disable="false"
                    fitHeight="40.0" fitWidth="40.0"
                    layoutX="400.0" layoutY="22.0"
                    pickOnBounds="true"
@@ -52,7 +50,6 @@
         </ImageView>
         <ImageView fx:id="dice3"
                    GridPane.columnIndex="3" GridPane.rowIndex="7"
-                   disable="false"
                    fitHeight="40.0" fitWidth="40.0"
                    layoutX="400.0" layoutY="22.0"
                    pickOnBounds="true"
@@ -64,7 +61,6 @@
         </ImageView>
         <ImageView fx:id="dice4"
                    GridPane.columnIndex="4" GridPane.rowIndex="7"
-                   disable="false"
                    fitHeight="40.0" fitWidth="40.0"
                    layoutX="400.0" layoutY="22.0"
                    pickOnBounds="true"
@@ -76,7 +72,6 @@
         </ImageView>
         <ImageView fx:id="dice5"
                    GridPane.columnIndex="5" GridPane.rowIndex="7"
-                   disable="false"
                    fitHeight="40.0" fitWidth="40.0"
                    layoutX="400.0" layoutY="22.0"
                    pickOnBounds="true"
@@ -92,7 +87,7 @@
                minHeight="480"
                GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="7">
         <columns>
-            <TableColumn fx:id="scoreName" minWidth="60" text="">
+            <TableColumn fx:id="scoreName" minWidth="60">
                 <cellValueFactory>
                     <PropertyValueFactory property="scoreName"/>
                 </cellValueFactory>

@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class Dice implements Comparable<Dice> {
     private final int sides;
-    private int value;
     private final Random ran;
+    private int value;
     private boolean keeper;
 
     public Dice(int num) {
@@ -27,7 +27,7 @@ public class Dice implements Comparable<Dice> {
     }
 
     public boolean keep() {
-        return keeper;
+        return !keeper;
     }
 
     public void toggleKeeper() {

@@ -204,7 +204,7 @@ public class GameController {
     }
 
     private void moveDiceToRolling(ImageView dice1, int index) {
-        if (!this.gfx.rou.dices[index].keep() && keptDice.getChildren().contains(dice1)) {
+        if (this.gfx.rou.dices[index].keep() && keptDice.getChildren().contains(dice1)) {
             keptDice.getChildren().remove(dice1);
             rollingDice.getChildren().add(dice1);
         }
@@ -342,10 +342,6 @@ public class GameController {
             rollingDice.getChildren().remove(dice5);
             keptDice.getChildren().add(dice5);
         }
-    }
-
-    public void setPlayerNumber(int i) {
-        System.out.println("SET");
     }
 
     private void gameOverDialog() {

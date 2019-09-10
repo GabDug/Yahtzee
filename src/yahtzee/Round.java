@@ -4,9 +4,9 @@ import yahtzee.game.Dice;
 import yahtzee.game.Score;
 
 public class Round {
-    public int throwLeft;
     public final Dice[] dices = new Dice[5];
     private final Score[] scoreboards;
+    public int throwLeft;
     private int currentPlayer;
 
 
@@ -22,7 +22,7 @@ public class Round {
     public void rollDices() {
         for (int i = 0; i < 5; i++) {
             // System.out.println(i);
-            if (!this.dices[i].keep()) {
+            if (this.dices[i].keep()) {
                 this.dices[i].roll();
             }
         }
