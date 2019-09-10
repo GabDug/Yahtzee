@@ -1,6 +1,7 @@
 package yahtzee;
 
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +13,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 
 
@@ -36,9 +36,9 @@ public class MenuController {
     }
 
     public void launchGame(ActionEvent event, int playerNumber) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainFX.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
 
-        MainFXController controller = new MainFXController(playerNumber);
+        GameController controller = new GameController(playerNumber);
         loader.setController(controller);
 
         GridPane pane = loader.load();
@@ -65,5 +65,9 @@ public class MenuController {
 
     public void multiPlayerLaunch(ActionEvent event) throws IOException {
         launchGame(event, (Integer) spinner.getValue());
+    }
+
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

@@ -2,8 +2,10 @@ package yahtzee;
 
 import com.sun.istack.internal.NotNull;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -11,14 +13,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import yahtzee.game.Rules;
 import yahtzee.game.Score;
 import yahtzee.table.ScoreRow;
 
-public class MainFXController {
+import java.io.IOException;
+import java.util.Optional;
+
+public class GameController {
     private static final int MAX_SCORE_NAME = 16;
     private static int MAX_PLAYERS = 2;
+    private final Image[] img = new Image[6];
     public TableView tableView;
     public TableColumn player1;
     public TableColumn scoreName;
@@ -26,10 +33,8 @@ public class MainFXController {
     public GridPane rollingDice;
     public GridPane keptDice;
     public Label title;
-
     @FXML
     private Text scoreLabel;
-
     @FXML
     private ImageView dice1;
     @FXML
@@ -40,14 +45,15 @@ public class MainFXController {
     private ImageView dice4;
     @FXML
     private ImageView dice5;
+    private GameEngine gfx;
 
-    private GameEngineFX gfx;
-
-    private final Image[] img = new Image[6];
+    public GameController(int playerNumber) {
+        MAX_PLAYERS = playerNumber;
+    }
 
     public void initialize() {
         System.out.println("YAHTZEE STARTED!");
-        this.gfx = new GameEngineFX(MAX_PLAYERS);
+        this.gfx = new GameEngine(MAX_PLAYERS);
 
         img[0] = new Image("resources/dieWhite1.png");
         img[1] = new Image("resources/dieWhite2.png");
@@ -157,6 +163,11 @@ public class MainFXController {
             resetDice();
             updateDices();
             reRollButton.setDisable(false);
+            if (gfx.isGameOver()) {
+                // System.out.println("End");
+                this.gameOverDialog();
+            }
+
         } else {
             System.out.println("Can't click here!");
         }
@@ -338,7 +349,37 @@ public class MainFXController {
         System.out.println("SET");
     }
 
-    public MainFXController(int playerNumber){
-        MAX_PLAYERS = playerNumber;
+    private void gameOverDialog() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText("Player X won !");
+        alert.setContentText("Thank you for playing our Yahtzee.");
+
+        ButtonType buttonTypeOne = new ButtonType("Play again");
+        ButtonType buttonTypeCancel = new ButtonType("Exit", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeOne) {
+            // Launch new game
+            this.gfx = new GameEngine(MAX_PLAYERS);
+            this.updateThrowLeft();
+            // Add a scoreboard with only labels, not actual score!
+            this.updateScore();
+            this.resetDice();
+
+        } else {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+                Stage app_stage = (Stage) (title.getScene().getWindow());
+                Scene newgame_scene = new Scene(root);
+                app_stage.setScene(newgame_scene);
+                app_stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
