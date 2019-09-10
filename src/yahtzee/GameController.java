@@ -156,15 +156,12 @@ public class GameController {
     private void clickCell(int row) {
         if (gfx.scoreSelect(row)) {
             // Reset GUI for new round
-            // updateScore(gfx.scoreboardArr, gfx.currentPlayer);
             updateScoreRealOnly(gfx.scoreboardArr);
-            //updateScore(gfx.getCurrentScoreboard().getMaxScore(), gfx.getCurrentScoreboard().getScore());
             updateThrowLeft();
             resetDice();
             updateDices();
             reRollButton.setDisable(false);
             if (gfx.isGameOver()) {
-                // System.out.println("End");
                 this.gameOverDialog();
             }
 

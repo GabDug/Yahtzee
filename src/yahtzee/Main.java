@@ -25,6 +25,4 @@ public class Main extends Application {
                 new Image("resources/LogoIcon.png"));
         primaryStage.show();
     }
-
-
 }

@@ -28,14 +28,13 @@ public class MenuController {
         spinner.setManaged(false);
         multiPlayerLaunchButton.setVisible(false);
         multiPlayerLaunchButton.setManaged(false);
-
     }
 
     public void singlePlayer(ActionEvent event) throws IOException {
         launchGame(event, 1);
     }
 
-    public void launchGame(ActionEvent event, int playerNumber) throws IOException {
+    private void launchGame(ActionEvent event, int playerNumber) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
 
         GameController controller = new GameController(playerNumber);
@@ -50,18 +49,12 @@ public class MenuController {
         app_stage.show();
     }
 
-    @FXML
-    private void newGameAction(MouseEvent event) throws IOException {
-
-    }
-
     public void multiPlayer(ActionEvent event) {
         spinner.setVisible(true);
         spinner.setManaged(true);
         multiPlayerLaunchButton.setVisible(true);
         multiPlayerLaunchButton.setManaged(true);
     }
-
 
     public void multiPlayerLaunch(ActionEvent event) throws IOException {
         launchGame(event, (Integer) spinner.getValue());

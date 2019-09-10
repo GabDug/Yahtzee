@@ -3,6 +3,11 @@ package yahtzee.game;
 import java.util.Arrays;
 
 public class Rules {
+    /**
+     * Check if there's a fullhouse possible
+     * @param dices
+     * @return possible score for the full house
+     */
     static public int fullHouse(Dice[] dices) {
         int[] counts = new int[6];
         //increase the relevant counter
@@ -20,6 +25,11 @@ public class Rules {
         return (check2 && check3) ? 25 : 0;
     }
 
+    /**
+     * Sum all the dices
+     * @param dices
+     * @return sum
+     */
     static int sumDices(Dice[] dices) {
         int score = 0;
         for (Dice dice : dices) {
@@ -28,6 +38,11 @@ public class Rules {
         return score;
     }
 
+    /**
+     * Check if there's a Yahtzee
+     * @param dices
+     * @return possible score for the yahtzee
+     */
     public static int yahtzee(Dice[] dices) {
         if (dices[0].value() == dices[1].value()
                 && dices[1].value() == dices[2].value()
@@ -106,6 +121,11 @@ public class Rules {
         return 0;
     }
 
+    /**
+     * Gives text for each indice.
+     * @param i row in the table, starting from 1
+     * @return String to be printed, for each score row
+     */
     public static String lower(int i) {
         switch (i) {
             case 1:

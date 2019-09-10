@@ -8,7 +8,7 @@ class GameEngine {
     public Score[] scoreboardArr;
     public int currentPlayer = 0;
 
-    public GameEngine(int playerNumber) {
+    GameEngine(int playerNumber) {
         MAX_PLAYERS = playerNumber;
         scoreboardArr = new Score[MAX_PLAYERS];
 
@@ -20,6 +20,9 @@ class GameEngine {
         rou.setPlayer(0);
     }
 
+    /**
+     * Reset a round: the dices, number of throw lefts,
+     */
     private void reset() {
         this.currentPlayer++;
         if (this.currentPlayer == MAX_PLAYERS) {
@@ -33,6 +36,9 @@ class GameEngine {
         }
     }
 
+    /**
+     * Roll the dices, update the scoreboard
+     */
     public void reRoll() {
         if (this.rou.throwLeft > 0) {
             this.rou.throwLeft--;
@@ -44,10 +50,10 @@ class GameEngine {
     }
 
     /**
-     * Select
+     * Save the score selected by the user, if it's allowed
      *
      * @param row of selected score
-     * @return boolean
+     * @return boolean Sucess
      */
     public boolean scoreSelect(int row) {
         // Can't select score before throwing dices
@@ -68,6 +74,10 @@ class GameEngine {
         return this.scoreboardArr[this.currentPlayer];
     }
 
+    /**
+     * Check if the game is over, when the scoreboard is full.
+     * @return boolean Is the game over ?
+     */
     public boolean isGameOver() {
         for (Score scoreboard : this.scoreboardArr) {
             if (!scoreboard.isFull()) {
@@ -76,5 +86,4 @@ class GameEngine {
         }
         return true;
     }
-
 }

@@ -23,7 +23,11 @@ public class Score {
         }*/
     }
 
-
+    /**
+     * Update all the maximum score that the player can get, with provided dices
+     *
+     * @param dices
+     */
     public void updateMaxScore(Dice[] dices) {
         // First reset score
         for (int diceValue = 0; diceValue < 16; diceValue++) {
@@ -38,7 +42,6 @@ public class Score {
         tempScoreBoard[12] = largeStraight(dices);
         tempScoreBoard[13] = sumDices(dices);
         tempScoreBoard[14] = yahtzee(dices);
-
     }
 
     private void upperScore(Dice[] dices) {
@@ -51,12 +54,18 @@ public class Score {
         }
     }
 
+    /**
+     * Print the maximum score. Legacy code from the console version, useful for debug.
+     */
     public void printMaxScore() {
         for (int i = 0; i < 16; i++) {
             System.out.printf("%-2.2s  %-16.16s  %-4.4s%n", i + 1, lower(i + 1), tempScoreBoard[i]);
         }
     }
 
+    /**
+     * Print the score. Legacy code from the console version, useful for debug.
+     */
     public void printScore() {
         for (int i = 0; i < 16; i++) {
             System.out.printf("%-2.2s  %-16.16s  %-4.4s%n", i + 1, lower(i + 1), scoreBoard[i]);
@@ -123,6 +132,7 @@ public class Score {
         return counter;
     }
 
+
     private int bonus() {
         if (scoreBoard[7] >= 63) {
             return 35;
@@ -133,6 +143,11 @@ public class Score {
         }
     }
 
+    /**
+     * Check if the scoreboard is full
+     *
+     * @return Boolean, true if the scoreboard is full
+     */
     public boolean isFull() {
         for (int i = 0; i < 16; i++) {
             if (scoreBoard[i] == -1) {
