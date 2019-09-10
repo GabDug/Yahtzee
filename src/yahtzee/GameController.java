@@ -4,7 +4,6 @@ import com.sun.istack.internal.NotNull;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,7 +22,7 @@ import yahtzee.table.ScoreRow;
 import java.io.IOException;
 import java.util.Optional;
 
-public class MainFXController {
+public class GameController {
     private static final int MAX_SCORE_NAME = 16;
     private static int MAX_PLAYERS = 2;
     private final Image[] img = new Image[6];
@@ -46,15 +45,15 @@ public class MainFXController {
     private ImageView dice4;
     @FXML
     private ImageView dice5;
-    private GameEngineFX gfx;
+    private GameEngine gfx;
 
-    public MainFXController(int playerNumber) {
+    public GameController(int playerNumber) {
         MAX_PLAYERS = playerNumber;
     }
 
     public void initialize() {
         System.out.println("YAHTZEE STARTED!");
-        this.gfx = new GameEngineFX(MAX_PLAYERS);
+        this.gfx = new GameEngine(MAX_PLAYERS);
 
         img[0] = new Image("resources/dieWhite1.png");
         img[1] = new Image("resources/dieWhite2.png");
@@ -364,7 +363,7 @@ public class MainFXController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonTypeOne) {
             // Launch new game
-            this.gfx = new GameEngineFX(MAX_PLAYERS);
+            this.gfx = new GameEngine(MAX_PLAYERS);
             this.updateThrowLeft();
             // Add a scoreboard with only labels, not actual score!
             this.updateScore();

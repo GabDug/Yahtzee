@@ -13,7 +13,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 
 
@@ -37,9 +36,9 @@ public class MenuController {
     }
 
     public void launchGame(ActionEvent event, int playerNumber) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainFX.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Game.fxml"));
 
-        MainFXController controller = new MainFXController(playerNumber);
+        GameController controller = new GameController(playerNumber);
         loader.setController(controller);
 
         GridPane pane = loader.load();

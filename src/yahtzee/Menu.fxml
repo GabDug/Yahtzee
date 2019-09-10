@@ -5,17 +5,23 @@
 <?import javafx.scene.layout.*?>
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="yahtzee.MenuController" alignment="center" hgap="10" vgap="10">
-    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" spacing="5" alignment="CENTER">
+    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1" alignment="CENTER">
+        <children>
+            <Label fx:id="title" text=" Yahtzee ! "/>
+        </children>
+    </VBox>
+    <VBox GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1" spacing="5" alignment="CENTER">
 
-        <Button text="Singleplayer" fx:id="singlePlayerButton"
+        <Button styleClass="button" text="Singleplayer" fx:id="singlePlayerButton"
                 onAction="#singlePlayer"/>
-        <Button text="Multiplayer" fx:id="multiPlayerButton"
+        <Button styleClass="button" text="Multiplayer" fx:id="multiPlayerButton"
                 onAction="#multiPlayer"/>
         <Spinner fx:id="spinner" min="2" max="5" initialValue="2" BorderPane.alignment="CENTER">
         </Spinner>
-        <Button text="Launch" fx:id="multiPlayerLaunchButton"
+        <Button styleClass="button" text="Launch" fx:id="multiPlayerLaunchButton"
+
                 onAction="#multiPlayerLaunch"/>
-        <Button text="Exit" fx:id="exitButton"
+        <Button styleClass="button" text="Exit" fx:id="exitButton"
                 onAction="#exit"/>
 
     </VBox>

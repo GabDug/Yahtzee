@@ -2,16 +2,28 @@
 .root {
   -fx-font-size: 10pt;
   -fx-font-family: "Segoe UI Semilight";
-  -fx-background-color: #fff;
+  -fx-background-color: #007752;
   /*  -fx-background-color: #364652;*/
+
   /* -fx-base: rgb(132, 145, 47);
    -fx-background: rgb(225, 228, 203); */
 }
 
 #title {
-  -fx-font: 20pt "Serif";
+  -fx-font: 40pt "Serif";
   -fx-font-family: "Segoe UI Light";
-  /* -fx-background-color: #C9E4CA;*/
+  -fx-background-color: #FFF;
+  -fx-background-radius: 0px 8px 8px 14px;
+}
+
+.button {
+  -fx-background-color: linear-gradient(#f2f2f2, #d6d6d6),
+  linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
+  linear-gradient(#dddddd 0%, #f6f6f6 50%);
+  -fx-background-radius: 8, 7, 6;
+  -fx-background-insets: 0, 1, 2;
+  -fx-text-fill: black;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
 
 

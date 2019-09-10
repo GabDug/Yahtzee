@@ -3,14 +3,14 @@ package yahtzee;
 import yahtzee.game.Dice;
 import yahtzee.game.Score;
 
-public class RoundFX {
+public class Round {
     public int throwLeft;
     public final Dice[] dices = new Dice[5];
     private final Score[] scoreboards;
     private int currentPlayer;
 
 
-    public RoundFX(Score[] scoreboards) {
+    public Round(Score[] scoreboards) {
         this.scoreboards = scoreboards;
         throwLeft = 3;
 
