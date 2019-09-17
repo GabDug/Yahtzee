@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
@@ -8,11 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-
 <GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" styleClass="root">
-
-
-
     <padding>
         <Insets top="5" right="25" bottom="10" left="25"/>
     </padding>
@@ -31,7 +28,8 @@
                 onAction="#rollEvent"/>
     </HBox>
 
-    <GridPane fx:id="keptDice" alignment="center" hgap="10" vgap="10" style="-fx-background-color: #eee"
+
+    <GridPane fx:id="keptDice" alignment="center" hgap="10" style="-fx-background-color: #eee"
               GridPane.columnIndex="1" GridPane.rowIndex="8">
 
         <ImageView fx:id="dice1" styleClass="dice"
@@ -117,7 +115,7 @@
             </FXCollections>
         </items>
     </TableView>
-    <GridPane fx:id="rollingDice" alignment="center" hgap="10" vgap="10" style="-fx-background-color: #eee"
+    <GridPane fx:id="rollingDice" alignment="center" hgap="10" style="-fx-background-color: #eee"
               GridPane.columnIndex="1" GridPane.rowIndex="5">
 
     </GridPane>
