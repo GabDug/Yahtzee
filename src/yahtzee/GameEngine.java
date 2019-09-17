@@ -83,4 +83,45 @@ class GameEngine {
         }
         return true;
     }
+
+    /**
+     * Return the players and their score
+     * UNUSUED
+     *
+     * @return int[][] (player, score)
+     */
+    public int[][] getWinners() {
+        if (this.isGameOver()) {
+            int[][] winnersArray = new int[MAX_PLAYERS][];
+            for (int i = 0; i < MAX_PLAYERS; i++) {
+                winnersArray[i] = new int[]{i, this.scoreboardArr[i].getScore()[15]};
+            }
+            return winnersArray;
+        } else {
+            return new int[1][0];
+        }
+    }
+
+    /**
+     * @return int, player number of the winner, 0 if tie
+     */
+    public int getWinner() {
+        if (this.isGameOver()) {
+            int maxScore = 0;
+            int player = 0;
+            for (int i = 0; i < MAX_PLAYERS; i++) {
+                if (this.scoreboardArr[i].getScore()[15] > maxScore) {
+                    player = i + 1;
+                }
+                if (this.scoreboardArr[i].getScore()[15] == maxScore) {
+                    return 0;
+                }
+            }
+            return player;
+        }
+        return -1;
+    }
 }
+
+
+

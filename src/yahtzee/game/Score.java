@@ -14,13 +14,13 @@ public class Score {
         for (int i = 0; i < 16; i++) {
             this.scoreBoard[i] = -1;
         }
-        /* DEBUG, fill score
+        //DEBUG, fill score
         for (int i = 0; i < 5; i++) {
             this.scoreBoard[i] = 5;
         }
         for (int i = 9; i < 14; i++) {
             this.scoreBoard[i] = 10;
-        }*/
+        }
     }
 
     /**

@@ -117,7 +117,6 @@
     </TableView>
     <GridPane fx:id="rollingDice" alignment="center" hgap="10" style="-fx-background-color: #eee"
               GridPane.columnIndex="1" GridPane.rowIndex="5">
-
     </GridPane>
 </GridPane>
 

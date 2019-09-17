@@ -24,7 +24,6 @@ import java.util.Optional;
 
 public class GameController {
     private static final int MAX_SCORE_NAME = 16;
-    private static int MAX_PLAYERS = 2;
     private final Image[] img = new Image[6];
     public TableView tableView;
     public TableColumn player1;
@@ -33,6 +32,7 @@ public class GameController {
     public GridPane rollingDice;
     public GridPane keptDice;
     public Label title;
+    private int MAX_PLAYERS;
     @FXML
     private Text scoreLabel;
     @FXML
@@ -346,8 +346,14 @@ public class GameController {
 
     private void gameOverDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        int win = gfx.getWinner();
+        if (win < 1) {
+            alert.setHeaderText("Tie !");
+        } else {
+            alert.setHeaderText("Player " + win + " won !");
+        }
+
         alert.setTitle("Game Over");
-        alert.setHeaderText("Player X won !");
         alert.setContentText("Thank you for playing our Yahtzee.");
 
         ButtonType buttonTypeOne = new ButtonType("Play again");
