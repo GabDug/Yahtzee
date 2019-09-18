@@ -1,97 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
-
-<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" styleClass="root">
+<?import javafx.scene.text.TextFlow?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" styleClass="root" vgap="10"
+          xmlns="http://javafx.com/javafx/8.0.171">
     <padding>
-        <Insets top="5" right="25" bottom="10" left="25"/>
+        <Insets bottom="10" left="25" right="25" top="5"/>
     </padding>
-    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3" alignment="CENTER">
-        <children>
-            <Label fx:id="title" text=" Yahtzee ! "/>
-        </children>
+    <VBox alignment="CENTER" GridPane.columnSpan="2147483647">
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <Label fx:id="title" text=" Yahtzee ! " GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                   GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+            <Button alignment="CENTER" mnemonicParsing="false" text="Home" GridPane.rowIndex="1">
+                <cursor>
+                    <Cursor fx:constant="HAND"/>
+                </cursor>
+            </Button>
+        </GridPane>
     </VBox>
 
-
-    <Text fx:id="scoreLabel"
-          GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-
-    <HBox GridPane.columnIndex="1" GridPane.rowIndex="7">
-        <Button id="button" text="Roll Dice" fx:id="reRollButton"
-                onAction="#rollEvent"/>
+    <TextFlow minHeight="50" style="-fx-background-color: #eee; -fx-padding: 15;" styleClass="diceArea"
+              textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Text fx:id="scoreLabel" fontSmoothingType="LCD" layoutX="10.0" layoutY="10.0" text="Click to begin."
+              wrappingWidth="83.46"/>
+    </TextFlow>
+    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7">
+        <Button id="button" fx:id="reRollButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true"
+                onAction="#rollEvent" text="Roll Dice" textAlignment="CENTER">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
     </HBox>
 
 
-    <GridPane fx:id="keptDice" alignment="center" hgap="10" style="-fx-background-color: #eee"
-              GridPane.columnIndex="1" GridPane.rowIndex="8">
+    <GridPane fx:id="keptDice" alignment="center" hgap="10" minHeight="100" minWidth="300" style=""
+              styleClass="diceArea" GridPane.columnIndex="1" GridPane.rowIndex="8">
 
-        <ImageView fx:id="dice1" styleClass="dice"
-                   GridPane.columnIndex="1" GridPane.rowIndex="7"
-                   fitHeight="40.0" fitWidth="40.0"
-                   layoutX="400.0" layoutY="22.0"
-                   pickOnBounds="true"
-                   onMouseClicked='#diceClick'
-                   preserveRatio="true">
-            <image>
-                <Image url="@../resources/dieWhite1.png"/>
-            </image>
+        <ImageView fx:id="dice1" fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="22.0"
+                   onMouseClicked="#diceClick" pickOnBounds="true" preserveRatio="true" styleClass="dice"
+                   GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <Image url="@../images/dieWhite1.png"/>
         </ImageView>
-        <ImageView fx:id="dice2" styleClass="dice"
-                   GridPane.columnIndex="2" GridPane.rowIndex="7"
-                   fitHeight="40.0" fitWidth="40.0"
-                   layoutX="400.0" layoutY="22.0"
-                   pickOnBounds="true"
-                   onMouseClicked='#diceClick'
-                   preserveRatio="true">
-            <image>
-                <Image url="@../resources/dieWhite2.png"/>
-            </image>
+        <ImageView fx:id="dice2" fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="22.0"
+                   onMouseClicked="#diceClick" pickOnBounds="true" preserveRatio="true" styleClass="dice"
+                   GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <Image url="@../images/dieWhite2.png"/>
         </ImageView>
-        <ImageView fx:id="dice3" styleClass="dice"
-                   GridPane.columnIndex="3" GridPane.rowIndex="7"
-                   fitHeight="40.0" fitWidth="40.0"
-                   layoutX="400.0" layoutY="22.0"
-                   pickOnBounds="true"
-                   onMouseClicked='#diceClick'
-                   preserveRatio="true">
-            <image>
-                <Image url="@../resources/dieWhite3.png"/>
-            </image>
+        <ImageView fx:id="dice3" fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="22.0"
+                   onMouseClicked="#diceClick" pickOnBounds="true" preserveRatio="true" styleClass="dice"
+                   GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <Image url="@../images/dieWhite3.png"/>
         </ImageView>
-        <ImageView fx:id="dice4" styleClass="dice"
-                   GridPane.columnIndex="4" GridPane.rowIndex="7"
-                   fitHeight="40.0" fitWidth="40.0"
-                   layoutX="400.0" layoutY="22.0"
-                   pickOnBounds="true"
-                   onMouseClicked='#diceClick'
-                   preserveRatio="true">
-            <image>
-                <Image url="@../resources/dieWhite4.png"/>
-            </image>
+        <ImageView fx:id="dice4" fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="22.0"
+                   onMouseClicked="#diceClick" pickOnBounds="true" preserveRatio="true" styleClass="dice"
+                   GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <Image url="@../images/dieWhite4.png"/>
         </ImageView>
-        <ImageView fx:id="dice5" styleClass="dice"
-                   GridPane.columnIndex="5" GridPane.rowIndex="7"
-                   fitHeight="40.0" fitWidth="40.0"
-                   layoutX="400.0" layoutY="22.0"
-                   pickOnBounds="true"
-                   onMouseClicked='#diceClick'
-                   preserveRatio="true">
-            <image>
-                <Image url="@../resources/dieWhite5.png"/>
-            </image>
+        <ImageView fx:id="dice5" fitHeight="40.0" fitWidth="40.0" layoutX="400.0" layoutY="22.0"
+                   onMouseClicked="#diceClick" pickOnBounds="true" preserveRatio="true" styleClass="dice"
+                   GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+            <Image url="@../images/dieWhite5.png"/>
         </ImageView>
+        <columnConstraints>
+            <ColumnConstraints/>
+            <ColumnConstraints/>
+            <ColumnConstraints/>
+            <ColumnConstraints/>
+            <ColumnConstraints/>
+            <ColumnConstraints/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
     </GridPane>
-    <TableView fx:id="tableView"
-               prefWidth="350.0"
-               minHeight="480"
-               GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="7">
+    <TableView fx:id="tableView" minHeight="480" prefWidth="350.0" GridPane.columnIndex="3" GridPane.rowIndex="3"
+               GridPane.rowSpan="7">
         <columns>
             <TableColumn fx:id="scoreName" minWidth="60">
                 <cellValueFactory>
@@ -114,11 +130,29 @@
             <FXCollections fx:factory="observableArrayList">
             </FXCollections>
         </items>
+        <cursor>
+            <Cursor fx:constant="HAND"/>
+        </cursor>
     </TableView>
-    <GridPane fx:id="rollingDice" alignment="center" hgap="10" style="-fx-background-color: #eee"
-              GridPane.columnIndex="1" GridPane.rowIndex="5">
+    <GridPane fx:id="rollingDice" alignment="center" hgap="10" minHeight="100" minWidth="300"
+              style="-fx-background-color: #eee" styleClass="diceArea" GridPane.columnIndex="1" GridPane.rowIndex="5">
     </GridPane>
+    <columnConstraints>
+        <ColumnConstraints/>
+        <ColumnConstraints maxWidth="450.0" minWidth="300.0" prefWidth="400.0"/>
+        <ColumnConstraints/>
+        <ColumnConstraints minWidth="300.0" prefWidth="400.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+        <RowConstraints/>
+    </rowConstraints>
 </GridPane>
-
-
-
