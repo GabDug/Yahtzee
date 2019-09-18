@@ -279,7 +279,6 @@ public class GameController {
     }
 
     public void diceClick(@NotNull MouseEvent mouseEvent) {
-        System.out.println("Dice clicked");
         if (this.gfx.rou.throwLeft == 3 || this.gfx.rou.throwLeft == 0) {
             System.out.println("Can't toggle a dice now!");
             return;
@@ -378,16 +377,28 @@ public class GameController {
             this.resetDice();
 
         } else {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
-                Stage app_stage = (Stage) (title.getScene().getWindow());
-                Scene newgame_scene = new Scene(root);
-                app_stage.setScene(newgame_scene);
-                app_stage.show();
+            exitToMenu();
+        }
+    }
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void exitToMenu(@NotNull MouseEvent mouseEvent) {
+        exitToMenu();
+    }
+
+    private void exitToMenu() {
+        try {
+            // Load the FXML
+            Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+            // Get back the stage (the window)
+            Stage app_stage = (Stage) (title.getScene().getWindow());
+            // Add scene, set scene, set css
+            Scene menu_scene = new Scene(root);
+            menu_scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            app_stage.setScene(menu_scene);
+            app_stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
