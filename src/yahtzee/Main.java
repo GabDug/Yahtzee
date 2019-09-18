@@ -15,6 +15,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        primaryStage.setMinHeight(700);
+        primaryStage.setMinWidth(650);
         Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
 
         Scene scene = new Scene(root, 700, 600);
@@ -22,7 +24,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Yahtzee");
         primaryStage.getIcons().add(
-                new Image("resources/LogoIcon.png"));
+                new Image("images/LogoIcon.png"));
         primaryStage.show();
     }
 }

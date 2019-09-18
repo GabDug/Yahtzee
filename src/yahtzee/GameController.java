@@ -55,15 +55,15 @@ public class GameController {
         System.out.println("YAHTZEE STARTED!");
         this.gfx = new GameEngine(MAX_PLAYERS);
 
-        img[0] = new Image("resources/dieWhite1.png");
-        img[1] = new Image("resources/dieWhite2.png");
-        img[2] = new Image("resources/dieWhite3.png");
-        img[3] = new Image("resources/dieWhite4.png");
-        img[4] = new Image("resources/dieWhite5.png");
-        img[5] = new Image("resources/dieWhite6.png");
+        img[0] = new Image("images/dieWhite1.png");
+        img[1] = new Image("images/dieWhite2.png");
+        img[2] = new Image("images/dieWhite3.png");
+        img[3] = new Image("images/dieWhite4.png");
+        img[4] = new Image("images/dieWhite5.png");
+        img[5] = new Image("images/dieWhite6.png");
 
         // updateDices(); // Put random dices from the beginning
-        updateThrowLeft();
+        updateHelpLabel();
         // Add a scoreboard with only labels, not actual score!
         updateScore();
 
@@ -131,10 +131,10 @@ public class GameController {
         this.resetDice();
 
         // Setup dices areas (kept and rolling)
-        keptDice.setMinHeight(100);
+       /* keptDice.setMinHeight(100);
         keptDice.setMinWidth(300);
         rollingDice.setMinHeight(100);
-        rollingDice.setMinWidth(300);
+        rollingDice.setMinWidth(300);*/
     }
 
     /**
@@ -148,8 +148,15 @@ public class GameController {
         dice5.setImage(this.img[this.gfx.rou.dices[4].value() - 1]);
     }
 
-    private void updateThrowLeft() {
-        scoreLabel.setText("Throw left: " + this.gfx.rou.throwLeft);
+    private void updateHelpLabel() {
+        if (this.gfx.rou.throwLeft == 3) {
+            scoreLabel.setText("Click 'Roll Dice' to begin.");
+        } else if (this.gfx.rou.throwLeft == 0) {
+            scoreLabel.setText("Select your move by clicking a cell in the scorecard.");
+        } else {
+            scoreLabel.setText("Click on the dice you want to keep.\n" +
+                    "You have " + this.gfx.rou.throwLeft + " throws left.");
+        }
     }
 
     /**
@@ -159,7 +166,7 @@ public class GameController {
         if (gfx.scoreSelect(row)) {
             // Reset GUI for new round
             updateScoreRealOnly(gfx.scoreboardArr);
-            updateThrowLeft();
+            updateHelpLabel();
             resetDice();
             updateDices();
             reRollButton.setDisable(false);
@@ -181,7 +188,7 @@ public class GameController {
         this.gfx.reRoll();
 
         this.moveToRolling();
-        this.updateThrowLeft();
+        this.updateHelpLabel();
         this.updateDices();
         //this.updateScore(this.gfx.getCurrentScoreboard().getMaxScore(), this.gfx.getCurrentScoreboard().getScore());
         this.updateScore(this.gfx.scoreboardArr, this.gfx.currentPlayer);
@@ -365,7 +372,7 @@ public class GameController {
         if (result.isPresent() && result.get() == buttonTypeOne) {
             // Launch new game
             this.gfx = new GameEngine(MAX_PLAYERS);
-            this.updateThrowLeft();
+            this.updateHelpLabel();
             // Add a scoreboard with only labels, not actual score!
             this.updateScore();
             this.resetDice();
