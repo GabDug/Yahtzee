@@ -11,8 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import yahtzee.game.Rules;
@@ -31,10 +31,13 @@ public class GameController {
     public Button reRollButton;
     public GridPane rollingDice;
     public GridPane keptDice;
+    public GridPane helpGrid;
     public Label title;
+    public Label helpLabel;
+    private AnchorPane helpPane;
     private int MAX_PLAYERS;
     @FXML
-    private Text scoreLabel;
+    private Label scoreLabel;
     @FXML
     private ImageView dice1;
     @FXML
@@ -52,7 +55,7 @@ public class GameController {
     }
 
     public void initialize() {
-        System.out.println("YAHTZEE STARTED!");
+        hideHelpPanel();
         this.gfx = new GameEngine(MAX_PLAYERS);
 
         img[0] = new Image("images/dieWhite1.png");
@@ -104,6 +107,7 @@ public class GameController {
                                     clickCell(c.getTableRow().getIndex());
                                 } else {
                                     // If too much row are printed, they can't be clicked.
+                                    setHelpPanel("This row can't be clicked!");
                                     System.out.println("DEBUG Cell is not clickable!");
                                 }
                             }
@@ -129,12 +133,6 @@ public class GameController {
         }
         // Put dices back in line (not in rolling area)
         this.resetDice();
-
-        // Setup dices areas (kept and rolling)
-       /* keptDice.setMinHeight(100);
-        keptDice.setMinWidth(300);
-        rollingDice.setMinHeight(100);
-        rollingDice.setMinWidth(300);*/
     }
 
     /**
@@ -157,6 +155,8 @@ public class GameController {
             scoreLabel.setText("Click on the dice you want to keep.\n" +
                     "You have " + this.gfx.rou.throwLeft + " throws left.");
         }
+        // scoreLabel.layoutXProperty().bind(helpPane.widthProperty().subtract(scoreLabel.widthProperty()).divide(2));
+
     }
 
     /**
@@ -176,6 +176,7 @@ public class GameController {
 
         } else {
             System.out.println("Can't click here!");
+            setHelpPanel("You can't select this score now.");
         }
     }
 
@@ -281,6 +282,7 @@ public class GameController {
     public void diceClick(@NotNull MouseEvent mouseEvent) {
         if (this.gfx.rou.throwLeft == 3 || this.gfx.rou.throwLeft == 0) {
             System.out.println("Can't toggle a dice now!");
+            setHelpPanel("You can't move a dice now !");
             return;
         }
 
@@ -327,7 +329,7 @@ public class GameController {
     /**
      * Put all dices back into line in kept area
      */
-    public void resetDice() {
+    private void resetDice() {
         if (rollingDice.getChildren().contains(dice1)) {
             rollingDice.getChildren().remove(dice1);
             keptDice.getChildren().add(dice1);
@@ -400,5 +402,20 @@ public class GameController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void hideHelpPanel(ActionEvent event) {
+        hideHelpPanel();
+    }
+
+    public void hideHelpPanel() {
+        helpGrid.setVisible(false);
+        helpGrid.setManaged(false);
+    }
+
+    private void setHelpPanel(String text){
+        helpGrid.setVisible(true);
+        helpGrid.setManaged(true);
+        helpLabel.setText(text);
     }
 }
