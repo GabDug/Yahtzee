@@ -2,11 +2,11 @@ package yahtzee.game;
 
 import java.util.Arrays;
 
-public class Rules {
+public class ScoreUtils {
     /**
      * Check if there's a fullhouse possible
      *
-     * @param dices
+     * @param dices array of Dice
      * @return possible score for the full house
      */
     static public int fullHouse(Dice[] dices) {
@@ -29,7 +29,7 @@ public class Rules {
     /**
      * Sum all the dices
      *
-     * @param dices
+     * @param dices array of Dice
      * @return sum
      */
     static int sumDices(Dice[] dices) {
@@ -43,7 +43,7 @@ public class Rules {
     /**
      * Check if there's a Yahtzee
      *
-     * @param dices
+     * @param dices array of Dice
      * @return possible score for the yahtzee
      */
     public static int yahtzee(Dice[] dices) {

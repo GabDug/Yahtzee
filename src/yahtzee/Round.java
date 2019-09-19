@@ -4,9 +4,9 @@ import yahtzee.game.Dice;
 import yahtzee.game.Score;
 
 public class Round {
-    public final Dice[] dices = new Dice[5];
+    final Dice[] dices = new Dice[5];
     private final Score[] scoreboards;
-    public int throwLeft;
+    int throwLeft;
     private int currentPlayer;
 
 
@@ -19,7 +19,7 @@ public class Round {
         }
     }
 
-    public void rollDices() {
+    void rollDices() {
         for (int i = 0; i < 5; i++) {
             // System.out.println(i);
             if (this.dices[i].keep()) {
@@ -28,11 +28,11 @@ public class Round {
         }
     }
 
-    public void toggleKeeperSolo(int keep) {
+    void toggleKeeperSolo(int keep) {
         this.dices[keep - 1].toggleKeeper();
     }
 
-    public boolean scoreSelectCheck(int score) {
+    boolean scoreSelectCheck(int score) {
         if (this.scoreboards[this.currentPlayer].isAvailable(score + 1)) {
             this.scoreboards[this.currentPlayer].selectScore(this.dices, score + 1);
             this.scoreboards[this.currentPlayer].printScore();
@@ -42,7 +42,7 @@ public class Round {
         }
     }
 
-    public void setPlayer(int currentPlayer) {
+    void setPlayer(int currentPlayer) {
         this.currentPlayer = currentPlayer;
         // System.out.println("Player " + currentPlayer);
     }

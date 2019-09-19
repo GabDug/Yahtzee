@@ -1,7 +1,7 @@
 package yahtzee.game;
 
 
-import static yahtzee.game.Rules.*;
+import static yahtzee.game.ScoreUtils.*;
 
 public class Score {
     private final int[] tempScoreBoard = new int[16];
@@ -15,18 +15,18 @@ public class Score {
             this.scoreBoard[i] = -1;
         }
         //DEBUG, fill score
-        for (int i = 0; i < 5; i++) {
-            this.scoreBoard[i] = 5;
+      /*  for (int i = 0; i < 5; i++) {
+            this.scoreBoard[i] = i*3;
         }
         for (int i = 9; i < 14; i++) {
-            this.scoreBoard[i] = 10;
-        }
+            this.scoreBoard[i] = 20;
+        }*/
     }
 
     /**
      * Update all the maximum score that the player can get, with provided dices
      *
-     * @param dices
+     * @param dices array of dices
      */
     public void updateMaxScore(Dice[] dices) {
         // First reset score
@@ -51,15 +51,6 @@ public class Score {
                     tempScoreBoard[diceValue] += diceValue + 1;
                 }
             }
-        }
-    }
-
-    /**
-     * Print the maximum score. Legacy code from the console version, useful for debug.
-     */
-    public void printMaxScore() {
-        for (int i = 0; i < 16; i++) {
-            System.out.printf("%-2.2s  %-16.16s  %-4.4s%n", i + 1, lower(i + 1), tempScoreBoard[i]);
         }
     }
 

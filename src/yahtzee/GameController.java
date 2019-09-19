@@ -11,11 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import yahtzee.game.Rules;
+import yahtzee.game.ScoreUtils;
 import yahtzee.game.Score;
 import yahtzee.table.ScoreRow;
 
@@ -34,7 +33,6 @@ public class GameController {
     public GridPane helpGrid;
     public Label title;
     public Label helpLabel;
-    private AnchorPane helpPane;
     private int MAX_PLAYERS;
     @FXML
     private Label scoreLabel;
@@ -243,7 +241,7 @@ public class GameController {
                 }
             }
 
-            tableView.getItems().add(new ScoreRow(Rules.lower(i + 1), scoreText));
+            tableView.getItems().add(new ScoreRow(ScoreUtils.lower(i + 1), scoreText));
         }
     }
 
@@ -264,7 +262,7 @@ public class GameController {
                 String textRealScore = scores[player][i] == -1 ? "" : Integer.toString(scores[player][i]);
                 scoreText[player] = textRealScore;
             }
-            tableView.getItems().add(new ScoreRow(Rules.lower(i + 1), scoreText));
+            tableView.getItems().add(new ScoreRow(ScoreUtils.lower(i + 1), scoreText));
         }
     }
 
@@ -274,7 +272,7 @@ public class GameController {
     private void updateScore() {
         tableView.getItems().clear();
         for (int i = 0; i < MAX_SCORE_NAME; i++) {
-            tableView.getItems().add(new ScoreRow(Rules.lower(i + 1), "", ""
+            tableView.getItems().add(new ScoreRow(ScoreUtils.lower(i + 1), "", ""
             ));
         }
     }
@@ -413,7 +411,7 @@ public class GameController {
         helpGrid.setManaged(false);
     }
 
-    private void setHelpPanel(String text){
+    private void setHelpPanel(String text) {
         helpGrid.setVisible(true);
         helpGrid.setManaged(true);
         helpLabel.setText(text);

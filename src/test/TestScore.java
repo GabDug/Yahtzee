@@ -3,7 +3,7 @@ package test;
 import org.junit.Assert;
 import org.junit.Test;
 import yahtzee.game.Dice;
-import yahtzee.game.Rules;
+import yahtzee.game.ScoreUtils;
 
 public class TestScore {
 
@@ -22,7 +22,7 @@ public class TestScore {
         final int expected = 30;
 
         // Act
-        final int actual = Rules.smallStraight(dices);
+        final int actual = ScoreUtils.smallStraight(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);
@@ -44,7 +44,7 @@ public class TestScore {
         final int expected = 15;
 
         // Act
-        final int actual = Rules.threeOfKind(dices);
+        final int actual = ScoreUtils.threeOfKind(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);
@@ -66,7 +66,7 @@ public class TestScore {
         final int expected = 0;
 
         // Act
-        final int actual = Rules.smallStraight(dices);
+        final int actual = ScoreUtils.smallStraight(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);
@@ -88,7 +88,7 @@ public class TestScore {
         final int expected = 14;
 
         // Act
-        final int actual = Rules.fourOfKind(dices);
+        final int actual = ScoreUtils.fourOfKind(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);
@@ -110,7 +110,7 @@ public class TestScore {
         final int expected = 24;
 
         // Act
-        final int actual = Rules.fourOfKind(dices);
+        final int actual = ScoreUtils.fourOfKind(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);
@@ -132,7 +132,7 @@ public class TestScore {
         final int expected = 25;
 
         // Act
-        final int actual = Rules.fourOfKind(dices);
+        final int actual = ScoreUtils.fourOfKind(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);
@@ -154,7 +154,7 @@ public class TestScore {
         final int expected = 40;
 
         // Act
-        final int actual = Rules.largeStraight(dices);
+        final int actual = ScoreUtils.largeStraight(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);
@@ -177,7 +177,7 @@ public class TestScore {
         final int expected = 50;
 
         // Act
-        final int actual = Rules.yahtzee(dices);
+        final int actual = ScoreUtils.yahtzee(dices);
 
         // Assert
         Assert.assertEquals(expected, actual);

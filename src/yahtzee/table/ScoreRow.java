@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@SuppressWarnings("unused")
 public class ScoreRow {
 
     private Object scoreName;
@@ -17,7 +18,7 @@ public class ScoreRow {
      * This class is used for the TableView object.
      * It is instancieted in a way where we can choose the number of player.
      *
-     * @param args
+     * @param args Strings to be put in each column, for a given row
      */
     public ScoreRow(Object... args) {
         Field[] fields = getClass().getDeclaredFields();

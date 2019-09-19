@@ -4,9 +4,9 @@ import yahtzee.game.Score;
 
 class GameEngine {
     private static int MAX_PLAYERS;
-    public final Round rou;
-    public Score[] scoreboardArr;
-    public int currentPlayer = 0;
+    final Round rou;
+    Score[] scoreboardArr;
+    int currentPlayer = 0;
 
     GameEngine(int playerNumber) {
         MAX_PLAYERS = playerNumber;
