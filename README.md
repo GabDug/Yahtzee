@@ -29,10 +29,3 @@ With better separation, code would be clearer and simpler to maintain.
 Dice assets are from Kenney.nl (distributed under CC-0).
 
 All code snippets found online should have their author in comments.
-
-## TODO
-
-- Comment
-- Refactoring
-- Adding Main Menu button on game screen
-- Fix "Throw left" not readable because of black on red
