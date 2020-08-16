@@ -1,8 +1,9 @@
-# Yahtzee
+# Yahtzee Game
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/485126f391f84314a5f28a89bec218c5)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Dugnychon/Yahtzee&amp;utm_campaign=Badge_Grade) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Concordia Assignment
+![Screenshot](https://i.imgur.com/evxp8ce.png?1)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/485126f391f84314a5f28a89bec218c5)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Dugnychon/Yahtzee&amp;utm_campaign=Badge_Grade)
+Concordia assignment for the Java course. Game made using JavaFX.
 
 ## Team B, group B
 
@@ -25,6 +26,8 @@ The code still needs some refactoring, with even better code separation between 
 With better separation, code would be clearer and simpler to maintain.
 
 ## License
+
+Code is released under the [MIT license](LICENSE.md).
 
 Dice assets are from Kenney.nl (distributed under CC-0).
 
